@@ -274,3 +274,38 @@ pnpm build
 # - console chunk ~26.38 kB
 # - full demo chunk ~27.99 kB
 ```
+
+---
+
+## Incremental Update: Vercel Build Compatibility Fix
+
+Date: 2026-02-12  
+Type: Build pipeline reliability fix
+
+### Updated files
+
+- `apps/web/vite.config.ts`
+
+### Summary
+
+- removed hard import/use of `kimi-plugin-inspect-react` from Vite plugins
+- kept standard React Vite plugin only so CI/CD and Vercel builds do not require undeclared local tooling
+- this also removes injected `code-path` props that were surfacing React.Fragment warnings
+
+### Verified by command output
+
+```bash
+pnpm lint
+# pass
+
+pnpm typecheck
+# pass
+
+pnpm build
+# pass
+# build artifact highlights:
+# build artifact highlights:
+# - main app chunk ~326.76 kB
+# - console chunk ~19.42 kB
+# - full demo chunk ~20.77 kB
+```
