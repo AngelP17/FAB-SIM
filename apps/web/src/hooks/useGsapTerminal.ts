@@ -5,13 +5,19 @@ function prefersReducedMotion() {
   return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 }
 
+function isMobileOrTouchViewport() {
+  const isMobile = window.matchMedia?.("(max-width: 1023px)")?.matches ?? false;
+  const noHover = window.matchMedia?.("(hover: none)")?.matches ?? false;
+  return isMobile || noHover;
+}
+
 export function useGsapTerminal(
   container: React.RefObject<HTMLElement | null>,
   deps: unknown[] = []
 ) {
   useEffect(() => {
     if (!container.current) return;
-    if (prefersReducedMotion()) return;
+    if (prefersReducedMotion() || isMobileOrTouchViewport()) return;
 
     const ctx = gsap.context(() => {
       const terminal = container.current!.querySelector("[data-terminal]");

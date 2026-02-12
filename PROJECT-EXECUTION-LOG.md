@@ -309,3 +309,39 @@ pnpm build
 # - console chunk ~19.42 kB
 # - full demo chunk ~20.77 kB
 ```
+
+---
+
+## Incremental Update: Mobile Demo Flicker Parity Fix
+
+Date: 2026-02-12  
+Type: Mobile UX stability fix
+
+### Updated files
+
+- `apps/web/src/components/demo/FullDemoExperience.tsx`
+- `apps/web/src/hooks/useGsapTerminal.ts`
+
+### Summary
+
+- stopped replaying section reveal animation on every step transition in full demo
+- stopped replaying terminal GSAP animation on every typed line update
+- disabled terminal GSAP motion on mobile/touch viewports to prevent flash during step transitions
+- switched mobile terminal autoscroll behavior from `smooth` to `auto` to avoid scroll jitter/flicker on small screens
+
+### Verified by command output
+
+```bash
+pnpm lint
+# pass
+
+pnpm typecheck
+# pass
+
+pnpm build
+# pass
+# build artifact highlights:
+# - main app chunk ~326.76 kB
+# - console chunk ~20.62 kB
+# - full demo chunk ~21.07 kB
+```

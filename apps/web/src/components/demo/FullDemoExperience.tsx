@@ -280,7 +280,11 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
   useEffect(() => {
     const el = consoleBodyRef.current;
     if (!el) return;
-    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    const prefersReduced =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    const isMobile = window.matchMedia?.("(max-width: 767px)")?.matches ?? false;
+    const behavior: ScrollBehavior = prefersReduced || isMobile ? "auto" : "smooth";
+    el.scrollTo({ top: el.scrollHeight, behavior });
   }, [lines.length]);
 
   return (
@@ -434,9 +438,9 @@ export function FullDemoExperience() {
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [copiedSeed, setCopiedSeed] = useState(false);
-  useGsapReveal(sectionRef, [currentStep]);
+  useGsapReveal(sectionRef);
   useGsapHoverPress(sectionRef);
-  useGsapTerminal(consoleRef, [currentStep, displayedLines.length]);
+  useGsapTerminal(consoleRef, [currentStep]);
 
   const loadEntries = async () => {
     setIsLoading(true);
