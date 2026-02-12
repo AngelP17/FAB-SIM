@@ -23,7 +23,8 @@ const USE_CASES = [
       "99.7% claim acceptance rate"
     ],
     stat: "$2.4M",
-    statLabel: "Avg. annual recovery"
+    statLabel: "Avg. annual recovery",
+    href: "/#/demo"
   },
   {
     icon: Scale,
@@ -37,7 +38,8 @@ const USE_CASES = [
       "Dispute resolution support"
     ],
     stat: "100%",
-    statLabel: "Defensible in court"
+    statLabel: "Defensible in court",
+    href: "/#/console"
   },
   {
     icon: Globe2,
@@ -51,7 +53,8 @@ const USE_CASES = [
       "Agreement-compliant exports"
     ],
     stat: "45+",
-    statLabel: "Countries supported"
+    statLabel: "Countries supported",
+    href: "/#/console"
   },
   {
     icon: Building2,
@@ -65,7 +68,8 @@ const USE_CASES = [
       "Standardized documentation"
     ],
     stat: "80%",
-    statLabel: "Faster audits"
+    statLabel: "Faster audits",
+    href: "/#/demo"
   },
   {
     icon: Package,
@@ -79,7 +83,8 @@ const USE_CASES = [
       "Unified audit trail"
     ],
     stat: "Zero",
-    statLabel: "Trust required"
+    statLabel: "Trust required",
+    href: "/#/ai"
   },
   {
     icon: FileCheck,
@@ -93,7 +98,8 @@ const USE_CASES = [
       "Expedited processing"
     ],
     stat: "3x",
-    statLabel: "Faster processing"
+    statLabel: "Faster processing",
+    href: "/#/console"
   }
 ];
 
@@ -146,7 +152,13 @@ export function UseCasesSection() {
                     <h3 className="text-xl font-medium text-white">{useCase.title}</h3>
                   </div>
                 </div>
-                <ArrowUpRight className="w-5 h-5 text-neutral-600 group-hover:text-white/50 transition-colors" />
+                <a
+                  href={useCase.href}
+                  className="p-1 rounded text-neutral-600 group-hover:text-white/70 hover:bg-white/5 transition-colors"
+                  aria-label={`Open ${useCase.title}`}
+                >
+                  <ArrowUpRight className="w-5 h-5" />
+                </a>
               </div>
 
               {/* Description */}
@@ -170,6 +182,13 @@ export function UseCasesSection() {
                   <span className="text-3xl font-mono font-bold text-white">{useCase.stat}</span>
                   <span className="text-sm text-neutral-500">{useCase.statLabel}</span>
                 </div>
+                <a
+                  href={useCase.href}
+                  className="mt-4 inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors"
+                >
+                  Explore use case
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           ))}

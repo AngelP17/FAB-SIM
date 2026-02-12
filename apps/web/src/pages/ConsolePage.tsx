@@ -6,9 +6,10 @@ import { LineageGraph } from "@/components/LineageGraph";
 import { EvidenceDrawer } from "@/components/EvidenceDrawer";
 import { generateSampleLedger } from "@/lib/sampleData";
 import { cn } from "@/lib/utils";
-import { Terminal, Shield, Activity, Database, Menu, X, ArrowLeft } from "lucide-react";
+import { Terminal, Shield, Activity, Database, Menu, X, ArrowLeft, PanelRightClose, PanelBottomClose } from "lucide-react";
 
 type PanelType = "tape" | "merkle" | "lineage";
+type DrawerPosition = "right" | "bottom";
 
 export default function ConsolePage() {
   const [entries, setEntries] = useState<LedgerEntry[]>([]);
@@ -17,6 +18,8 @@ export default function ConsolePage() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activePanel, setActivePanel] = useState<PanelType>("tape");
+  const [drawerPosition, setDrawerPosition] = useState<DrawerPosition>("right");
+  const [compactDrawer, setCompactDrawer] = useState(false);
 
   const loadEntries = async () => {
     setIsLoading(true);
@@ -158,6 +161,22 @@ export default function ConsolePage() {
             </button>
           </nav>
 
+          <div className="hidden lg:flex items-center gap-2">
+            <button
+              onClick={() => setDrawerPosition((prev) => (prev === "right" ? "bottom" : "right"))}
+              className="px-3 py-2 rounded-md text-[11px] font-mono text-neutral-400 hover:text-white hover:bg-neutral-900 border border-neutral-900 transition-colors flex items-center gap-2"
+            >
+              {drawerPosition === "right" ? <PanelBottomClose className="w-3.5 h-3.5" /> : <PanelRightClose className="w-3.5 h-3.5" />}
+              {drawerPosition === "right" ? "Move Drawer Bottom" : "Move Drawer Right"}
+            </button>
+            <button
+              onClick={() => setCompactDrawer((prev) => !prev)}
+              className="px-3 py-2 rounded-md text-[11px] font-mono text-neutral-400 hover:text-white hover:bg-neutral-900 border border-neutral-900 transition-colors"
+            >
+              {compactDrawer ? "Comfortable Drawer" : "Compact Drawer"}
+            </button>
+          </div>
+
           {/* Back button - touch friendly */}
           <a 
             href="/#/"
@@ -223,21 +242,24 @@ export default function ConsolePage() {
 
       {/* Main content - All screens use tabbed layout */}
       <main className="p-2 sm:p-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-4 h-[calc(100vh-80px)]">
+        <div className={cn(
+          "grid grid-cols-1 gap-2 sm:gap-4 h-[calc(100vh-80px)]",
+          drawerPosition === "right" ? (compactDrawer ? "lg:grid-cols-[minmax(0,1fr)_300px]" : "lg:grid-cols-[minmax(0,1fr)_420px]") : "lg:grid-cols-1"
+        )}>
           {/* Main Panel - Shows active tab content */}
-          <div className="lg:col-span-2 flex flex-col gap-2 sm:gap-4 min-h-0">
+          <div className="flex flex-col gap-2 sm:gap-4 min-h-0">
             {renderMainPanel()}
           </div>
 
           {/* Evidence Drawer - Always visible on desktop, collapses on mobile */}
-          <div className="hidden lg:block">
-            <EvidenceDrawer entry={selectedEntry} />
+          <div className={cn("hidden lg:block", drawerPosition === "bottom" && "h-[260px]")}>
+            <EvidenceDrawer entry={selectedEntry} compact={compactDrawer} />
           </div>
         </div>
 
         {/* Mobile Evidence Drawer */}
         <div className="lg:hidden mt-2 sm:mt-4">
-          <EvidenceDrawer entry={selectedEntry} />
+          <EvidenceDrawer entry={selectedEntry} compact />
         </div>
       </main>
 

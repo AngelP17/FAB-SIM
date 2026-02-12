@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense, lazy } from "react";
+import { useState, useEffect, Suspense, lazy, Component, type ReactNode } from "react";
 import { LandingPage } from "@/pages/LandingPage";
 
 // Lazy load ConsolePage for code splitting
@@ -20,6 +20,40 @@ function PageLoading({ text }: { text: string }) {
       </div>
     </div>
   );
+}
+
+interface SafeRouteBoundaryProps {
+  children: ReactNode;
+  routeName: string;
+}
+
+interface SafeRouteBoundaryState {
+  hasError: boolean;
+}
+
+class SafeRouteBoundary extends Component<SafeRouteBoundaryProps, SafeRouteBoundaryState> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError(): SafeRouteBoundaryState {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-black flex items-center justify-center px-4">
+          <div className="max-w-md w-full border border-neutral-800 bg-neutral-950 rounded-xl p-6 text-center">
+            <div className="text-white text-sm font-medium mb-2">{this.props.routeName} failed to load</div>
+            <div className="text-neutral-500 text-sm mb-5">Please reload this route.</div>
+            <a href={window.location.hash || "/#/"} className="px-4 py-2 rounded bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-colors">
+              Retry
+            </a>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 function App() {
@@ -61,25 +95,31 @@ function App() {
   // Route to appropriate component
   if (currentPath === "/console") {
     return (
-      <Suspense fallback={<PageLoading text="Loading TradeOS Console..." />}>
-        <ConsolePage />
-      </Suspense>
+      <SafeRouteBoundary routeName="TradeOS Console">
+        <Suspense fallback={<PageLoading text="Loading TradeOS Console..." />}>
+          <ConsolePage />
+        </Suspense>
+      </SafeRouteBoundary>
     );
   }
 
   if (currentPath === "/ai") {
     return (
-      <Suspense fallback={<PageLoading text="Loading AI Demo..." />}>
-        <AiDemoPage />
-      </Suspense>
+      <SafeRouteBoundary routeName="AI Demo">
+        <Suspense fallback={<PageLoading text="Loading AI Demo..." />}>
+          <AiDemoPage />
+        </Suspense>
+      </SafeRouteBoundary>
     );
   }
 
   if (currentPath === "/demo") {
     return (
-      <Suspense fallback={<PageLoading text="Loading Demo Experience..." />}>
-        <FullDemoExperience />
-      </Suspense>
+      <SafeRouteBoundary routeName="Full Demo">
+        <Suspense fallback={<PageLoading text="Loading Demo Experience..." />}>
+          <FullDemoExperience />
+        </Suspense>
+      </SafeRouteBoundary>
     );
   }
 

@@ -508,9 +508,11 @@ export function FullDemoExperience() {
   };
 
   const copySeed = () => {
-    navigator.clipboard.writeText("0xFA11");
-    setCopiedSeed(true);
-    setTimeout(() => setCopiedSeed(false), 2000);
+    if (navigator?.clipboard?.writeText) {
+      void navigator.clipboard.writeText("0xFA11");
+      setCopiedSeed(true);
+      setTimeout(() => setCopiedSeed(false), 2000);
+    }
   };
 
   if (isLoading) {

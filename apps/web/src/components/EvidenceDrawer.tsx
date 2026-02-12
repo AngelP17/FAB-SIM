@@ -14,6 +14,7 @@ interface VerificationResult {
 interface EvidenceDrawerProps {
   entry: LedgerEntry | null;
   onClose?: () => void;
+  compact?: boolean;
 }
 
 function shortHex(h: string, len = 16) {
@@ -22,7 +23,7 @@ function shortHex(h: string, len = 16) {
   return `0x${x.slice(0, len)}…${x.slice(-8)}`;
 }
 
-export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
+export function EvidenceDrawer({ entry, onClose, compact = false }: EvidenceDrawerProps) {
   const [verification, setVerification] = useState<VerificationResult | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
@@ -66,10 +67,26 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
     }
   }, [entry, verifyHashes]);
 
-  const copyToClipboard = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(label);
-    setTimeout(() => setCopied(null), 2000);
+  const copyToClipboard = async (text: string, label: string) => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      setCopied(label);
+      setTimeout(() => setCopied(null), 2000);
+    } catch {
+      setCopied(null);
+    }
   };
 
   if (!entry) {
@@ -112,7 +129,7 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-4 space-y-4">
+      <div className={cn("flex-1 overflow-auto space-y-4", compact ? "p-3" : "p-4")}>
         {/* Header info */}
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -125,7 +142,7 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
             )}>
               {t}
             </span>
-            <span className="text-neutral-500 font-mono text-[11px]">
+            <span className="text-neutral-500 font-mono text-xs">
               SEQ {String(entry.seq).padStart(6, "0")}
             </span>
           </div>
@@ -133,15 +150,15 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
 
         {/* Hash verification */}
         <div className="space-y-3">
-          <div className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">Hash Verification</div>
+          <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Hash Verification</div>
           
           {/* Event Hash */}
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono text-neutral-400">Event Hash</span>
+              <span className="text-xs font-mono text-neutral-300">Event Hash</span>
               {verification && (
                 <span className={cn(
-                  "text-[10px] font-mono flex items-center gap-1",
+                  "text-[11px] font-mono flex items-center gap-1",
                   verification.eventHashValid ? "text-white" : "text-neutral-500"
                 )}>
                   {verification.eventHashValid ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
@@ -150,7 +167,7 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
               )}
             </div>
             <div className="flex items-center gap-2">
-              <code className="flex-1 bg-neutral-900/50 border border-neutral-800 rounded px-2 py-1.5 text-[10px] font-mono text-neutral-400 break-all">
+              <code className="flex-1 bg-neutral-900/50 border border-neutral-800 rounded px-2 py-1.5 text-[11px] font-mono text-neutral-300 break-all">
                 {shortHex(entry.eventHash, 24)}
               </code>
               <button
@@ -165,10 +182,10 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
           {/* Ledger Hash */}
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono text-neutral-400">Ledger Hash</span>
+              <span className="text-xs font-mono text-neutral-300">Ledger Hash</span>
               {verification && (
                 <span className={cn(
-                  "text-[10px] font-mono flex items-center gap-1",
+                  "text-[11px] font-mono flex items-center gap-1",
                   verification.ledgerHashValid ? "text-white" : "text-neutral-500"
                 )}>
                   {verification.ledgerHashValid ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
@@ -177,7 +194,7 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
               )}
             </div>
             <div className="flex items-center gap-2">
-              <code className="flex-1 bg-neutral-900/50 border border-neutral-800 rounded px-2 py-1.5 text-[10px] font-mono text-neutral-400 break-all">
+              <code className="flex-1 bg-neutral-900/50 border border-neutral-800 rounded px-2 py-1.5 text-[11px] font-mono text-neutral-300 break-all">
                 {shortHex(entry.ledgerHash, 24)}
               </code>
               <button
@@ -191,9 +208,9 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
 
           {/* Previous Hash */}
           <div className="space-y-1">
-            <span className="text-[11px] font-mono text-neutral-400">Previous Hash</span>
+            <span className="text-xs font-mono text-neutral-300">Previous Hash</span>
             <div className="flex items-center gap-2">
-              <code className="flex-1 bg-neutral-900/50 border border-neutral-800 rounded px-2 py-1.5 text-[10px] font-mono text-neutral-500 break-all">
+              <code className="flex-1 bg-neutral-900/50 border border-neutral-800 rounded px-2 py-1.5 text-[11px] font-mono text-neutral-400 break-all">
                 {entry.prevHash ? shortHex(entry.prevHash, 24) : "null (genesis)"}
               </code>
               {entry.prevHash && (
@@ -210,25 +227,25 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
 
         {/* Record details */}
         <div className="space-y-3">
-          <div className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">Record Details</div>
+          <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Record Details</div>
           <div className="bg-neutral-900/50 border border-neutral-800 rounded p-3 space-y-2">
-            <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
               <span className="text-neutral-500">Event ID</span>
               <span className="text-neutral-300">{entry.record.eventId}</span>
             </div>
-            <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
               <span className="text-neutral-500">Source</span>
               <span className="text-neutral-300">{entry.record.sourceId}</span>
             </div>
-            <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
               <span className="text-neutral-500">Domain</span>
               <span className="text-neutral-300">{entry.record.domain}</span>
             </div>
-            <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
               <span className="text-neutral-500">Occurred At</span>
               <span className="text-neutral-300">{new Date(entry.record.occurredAt).toISOString()}</span>
             </div>
-            <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
               <span className="text-neutral-500">Committed At</span>
               <span className="text-neutral-300">{new Date(entry.record.committedAt).toISOString()}</span>
             </div>
@@ -237,15 +254,15 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
             {t === "MATERIAL_LOSS" && (
               <>
                 <div className="border-t border-neutral-800 my-2" />
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <span className="text-neutral-500">Material ID</span>
                   <span className="text-neutral-300">{(entry.record as { materialId: string }).materialId}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <span className="text-neutral-500">Quantity</span>
                   <span className="text-neutral-300">{(entry.record as { quantity: string }).quantity}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <span className="text-neutral-500">Reason</span>
                   <span className="text-neutral-300">{(entry.record as { reason: string }).reason}</span>
                 </div>
@@ -255,21 +272,21 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
             {t === "DUTY_CALCULATED" && (
               <>
                 <div className="border-t border-neutral-800 my-2" />
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <span className="text-neutral-500">Source Event</span>
                   <span className="text-neutral-400 break-all">
                     {shortHex((entry.record as { sourceEventHash: string }).sourceEventHash, 16)}
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <span className="text-neutral-500">Material Value</span>
                   <span className="text-neutral-300">${(entry.record as { materialValue: string }).materialValue}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <span className="text-neutral-500">Duty Rate</span>
                   <span className="text-neutral-300">{(entry.record as { dutyRate: string }).dutyRate}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   <span className="text-neutral-500">Calculated Duty</span>
                   <span className="text-neutral-200">${(entry.record as { calculatedDuty: string }).calculatedDuty}</span>
                 </div>
@@ -296,8 +313,11 @@ export function EvidenceDrawer({ entry, onClose }: EvidenceDrawerProps) {
 
         {/* Raw JSON */}
         <div className="space-y-3">
-          <div className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">Raw Record</div>
-          <pre className="bg-neutral-900/50 border border-neutral-800 rounded p-3 text-[10px] font-mono text-neutral-400 overflow-auto max-h-48">
+          <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Raw Record</div>
+          <pre className={cn(
+            "bg-neutral-900/50 border border-neutral-800 rounded p-3 text-[11px] font-mono text-neutral-300 overflow-auto",
+            compact ? "max-h-40" : "max-h-56"
+          )}>
             {JSON.stringify(entry.record, null, 2)}
           </pre>
         </div>

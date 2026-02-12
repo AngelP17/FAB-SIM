@@ -78,7 +78,7 @@ function FabsimCard() {
           </ul>
           
           <a 
-            href="/#/console"
+            href="/#/demo"
             className="group inline-flex items-center gap-2 text-white font-medium hover:gap-3 transition-all"
           >
             Explore FAB-SIM
