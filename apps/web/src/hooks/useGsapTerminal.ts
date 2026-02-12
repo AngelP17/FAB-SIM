@@ -1,0 +1,36 @@
+import { useEffect } from "react";
+import { gsap } from "@/lib/gsap";
+
+function prefersReducedMotion() {
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+}
+
+export function useGsapTerminal(container: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    if (!container.current) return;
+    if (prefersReducedMotion()) return;
+
+    const ctx = gsap.context(() => {
+      const terminal = container.current!.querySelector("[data-terminal]");
+      const lines = gsap.utils.toArray<HTMLElement>(
+        container.current!.querySelectorAll("[data-terminal-line]")
+      );
+
+      if (!terminal || lines.length === 0) return;
+
+      gsap.fromTo(
+        terminal,
+        { opacity: 0, y: 12, filter: "blur(6px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        lines,
+        { opacity: 0, y: 6 },
+        { opacity: 1, y: 0, duration: 0.35, ease: "power1.out", stagger: 0.08, delay: 0.1 }
+      );
+    }, container);
+
+    return () => ctx.revert();
+  }, [container]);
+}

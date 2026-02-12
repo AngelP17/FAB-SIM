@@ -1,0 +1,12 @@
+export { HeroSection } from './HeroSection';
+export { ProductStrip } from './ProductStrip';
+export { ProcessTimeline } from './ProcessTimeline';
+export { StatsStrip } from './StatsStrip';
+export { DemoSection } from './DemoSection';
+export { ConsolePreview } from './ConsolePreview';
+export { WhatIsSection } from './WhatIsSection';
+export { UseCasesSection } from './UseCasesSection';
+export { ProfessionalsSection } from './ProfessionalsSection';
+export { DesignPrinciplesSection } from './DesignPrinciplesSection';
+export { IntegrationSection } from './IntegrationSection';
+export { ClientDemoSection } from './ClientDemoSection';
