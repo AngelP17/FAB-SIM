@@ -292,7 +292,9 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
         </div>
       </div>
       <div className="p-3 sm:p-4 font-mono text-[11px] sm:text-[12px] h-48 sm:h-64 overflow-auto">
-        {lines.map((line, i) => (
+        {lines.map((rawLine, i) => {
+          const line = typeof rawLine === "string" ? rawLine : "";
+          return (
           <div 
             key={i} 
             data-terminal-line
@@ -306,7 +308,8 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
           >
             {line}
           </div>
-        ))}
+          );
+        })}
         {isTyping && (
           <div className="inline-block w-2 h-4 bg-white/50 animate-pulse mt-1" />
         )}
@@ -450,14 +453,17 @@ export function FullDemoExperience() {
 
   // Typewriter effect for console
   useEffect(() => {
-    const lines = currentStepData.consoleOutput;
+    const lines = currentStepData.consoleOutput ?? [];
     setDisplayedLines([]);
     setIsTyping(true);
     
     let currentLine = 0;
     const typeInterval = setInterval(() => {
       if (currentLine < lines.length) {
-        setDisplayedLines(prev => [...prev, lines[currentLine]]);
+        const nextLine = lines[currentLine];
+        if (typeof nextLine === "string") {
+          setDisplayedLines(prev => [...prev, nextLine]);
+        }
         currentLine++;
       } else {
         setIsTyping(false);

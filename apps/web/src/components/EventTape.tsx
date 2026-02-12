@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { Fragment, useMemo, useState, useCallback, useEffect } from "react";
 import type { LedgerEntry, EventType } from "@truthgrid/types";
 import { cn } from "@/lib/utils";
 
@@ -136,10 +136,9 @@ export function EventTape({ entries, onSelect, selectedSeq }: EventTapeProps) {
           const isSelected = selectedSeq === e.seq || selectedIndex === idx;
 
           return (
-            <>
+            <Fragment key={e.seq}>
               {/* Desktop Row */}
               <button
-                key={`desktop-${e.seq}`}
                 onClick={() => handleSelect(e, idx)}
                 className={cn(
                   "hidden sm:grid w-full text-left grid-cols-[70px_100px_130px_140px_1fr] gap-2 px-3 py-2 border-b border-neutral-800/50 cursor-pointer font-mono text-[11px] transition-colors min-h-[44px] items-center",
@@ -165,7 +164,6 @@ export function EventTape({ entries, onSelect, selectedSeq }: EventTapeProps) {
               
               {/* Mobile Row */}
               <button
-                key={`mobile-${e.seq}`}
                 onClick={() => handleSelect(e, idx)}
                 className={cn(
                   "sm:hidden w-full text-left grid grid-cols-[60px_80px_1fr_100px] gap-2 px-3 py-2.5 border-b border-neutral-800/50 cursor-pointer font-mono text-[11px] transition-colors min-h-[48px] items-center",
@@ -187,7 +185,7 @@ export function EventTape({ entries, onSelect, selectedSeq }: EventTapeProps) {
                 <span className="text-neutral-400 truncate">{shortHex(e.eventHash, 4, 4)}</span>
                 <span className="text-neutral-500 text-right text-[10px]">{formatTimeMobile(e.record.committedAt)}</span>
               </button>
-            </>
+            </Fragment>
           );
         })}
       </div>
