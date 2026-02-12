@@ -6,10 +6,9 @@ import { LineageGraph } from "@/components/LineageGraph";
 import { EvidenceDrawer } from "@/components/EvidenceDrawer";
 import { generateSampleLedger } from "@/lib/sampleData";
 import { cn } from "@/lib/utils";
-import { Terminal, Shield, Activity, Database, Menu, X, ArrowLeft, PanelRightClose, PanelBottomClose, Cpu, Globe2, FileCheck } from "lucide-react";
+import { Terminal, Shield, Activity, Database, Menu, X, ArrowLeft, Cpu, Globe2, FileCheck } from "lucide-react";
 
 type PanelType = "workspaces" | "tape" | "merkle" | "lineage";
-type DrawerPosition = "right" | "bottom";
 type ServiceWorkspaceId = "customs" | "logistics" | "factoring";
 
 type WorkspaceItem = {
@@ -459,8 +458,6 @@ export default function ConsolePage() {
     logistics: 0,
     factoring: 0
   });
-  const [drawerPosition, setDrawerPosition] = useState<DrawerPosition>("right");
-  const [compactDrawer, setCompactDrawer] = useState(false);
 
   const loadEntries = async () => {
     setIsLoading(true);
@@ -654,22 +651,6 @@ export default function ConsolePage() {
             </button>
           </nav>
 
-          <div className="hidden lg:flex items-center gap-2">
-            <button
-              onClick={() => setDrawerPosition((prev) => (prev === "right" ? "bottom" : "right"))}
-              className="px-3 py-2 rounded-md text-[11px] font-mono text-neutral-400 hover:text-white hover:bg-neutral-900 border border-neutral-900 transition-colors flex items-center gap-2"
-            >
-              {drawerPosition === "right" ? <PanelBottomClose className="w-3.5 h-3.5" /> : <PanelRightClose className="w-3.5 h-3.5" />}
-              {drawerPosition === "right" ? "Move Drawer Bottom" : "Move Drawer Right"}
-            </button>
-            <button
-              onClick={() => setCompactDrawer((prev) => !prev)}
-              className="px-3 py-2 rounded-md text-[11px] font-mono text-neutral-400 hover:text-white hover:bg-neutral-900 border border-neutral-900 transition-colors"
-            >
-              {compactDrawer ? "Comfortable Drawer" : "Compact Drawer"}
-            </button>
-          </div>
-
           {/* Back button - touch friendly */}
           <a 
             href="/#/"
@@ -750,7 +731,7 @@ export default function ConsolePage() {
           return (
         <div className={cn(
           "grid grid-cols-1 gap-2 sm:gap-4 h-[calc(100vh-80px)]",
-          showDrawer && drawerPosition === "right" ? (compactDrawer ? "lg:grid-cols-[minmax(0,1fr)_300px]" : "lg:grid-cols-[minmax(0,1fr)_420px]") : "lg:grid-cols-1"
+          showDrawer ? "lg:grid-cols-[minmax(0,1fr)_420px]" : "lg:grid-cols-1"
         )}>
           {/* Main Panel - Shows active tab content */}
           <div className="flex flex-col gap-2 sm:gap-4 min-h-0">
@@ -759,8 +740,8 @@ export default function ConsolePage() {
 
           {/* Evidence Drawer - Always visible on desktop, collapses on mobile */}
           {showDrawer && (
-            <div className={cn("hidden lg:block", drawerPosition === "bottom" && "h-[260px]")}>
-              <EvidenceDrawer entry={selectedEntry} compact={compactDrawer} />
+            <div className="hidden lg:block">
+              <EvidenceDrawer entry={selectedEntry} compact={false} />
             </div>
           )}
         </div>

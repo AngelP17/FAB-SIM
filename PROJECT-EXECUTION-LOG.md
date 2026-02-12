@@ -310,3 +310,39 @@ pnpm build
 # - console chunk ~26.38 kB
 # - full demo chunk ~27.98 kB
 ```
+
+---
+
+## Incremental Update: Console Lineage Layout Cleanup
+
+Date: 2026-02-12  
+Type: UI quality refinement
+
+### Updated files
+
+- `apps/web/src/pages/ConsolePage.tsx`
+- `apps/web/src/components/LineageGraph.tsx`
+
+### Summary
+
+- removed drawer-position and drawer-size toggle controls from console header
+- standardized desktop console layout to a stable main-pane + evidence-drawer split
+- rebuilt lineage graph layout to auto-fit available width with responsive lane spacing
+- removed lineage zoom/pan controls in favor of cleaner auto-fit rendering
+
+### Verified by command output
+
+```bash
+pnpm lint
+# pass
+
+pnpm typecheck
+# pass
+
+pnpm build
+# pass
+# build artifact highlights:
+# - main app chunk ~370.54 kB
+# - console chunk ~24.95 kB
+# - full demo chunk ~27.98 kB
+```
