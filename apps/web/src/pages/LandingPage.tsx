@@ -71,20 +71,23 @@ function Footer() {
 // Main Landing Page
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-black">
-      {/* Editorial Sections */}
-      <HeroSection />
-      <StatsStrip />
-      <WhatIsSection />
-      <ProductStrip />
-      <UseCasesSection />
-      <IntegrationSection />
-      <ClientDemoSection />
-      <ProfessionalsSection />
-      <ProcessTimeline />
-      <DesignPrinciplesSection />
-      <DemoSection />
-      <Footer />
+    <div className="relative min-h-screen tradeos-atmo">
+      <div className="pointer-events-none fixed inset-0 tradeos-atmo-grid opacity-20" />
+      <div className="relative z-10">
+        {/* Editorial Sections */}
+        <HeroSection />
+        <StatsStrip />
+        <WhatIsSection />
+        <ProductStrip />
+        <UseCasesSection />
+        <IntegrationSection />
+        <ClientDemoSection />
+        <ProfessionalsSection />
+        <ProcessTimeline />
+        <DesignPrinciplesSection />
+        <DemoSection />
+        <Footer />
+      </div>
     </div>
   );
 }

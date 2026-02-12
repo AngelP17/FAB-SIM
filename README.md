@@ -2,20 +2,23 @@
 
 **The Operating System for Free Trade Zones**
 
-AI ingestion -> deterministic event modeling -> tamper-evident ledger -> sealed financial claims.
+AI customs agent -> predictive logistics -> invoice factoring -> tamper-evident proof rails.
 
 ---
 
 ## One-Liner
 
-TradeOS uses AI to convert messy shipping documents into schema-bound events, then derives deterministic, auditable financial claims.
+TradeOS uses AI to convert messy shipping documents into schema-bound events, then runs predictive logistics and invoice factoring decisions with deterministic, auditable evidence.
 
 ## Primary Value Props
 
 - Vision-to-Hash ingestion (unstructured -> structured)
+- AI customs agent service (document-to-entry automation)
+- predictive logistics service (route and risk forecasts)
+- invoice factoring service (risk-scored financing decisions)
 - Deterministic replay (seed-consistent proofs)
 - Tamper-evident ledger (hash chains + Merkle batching)
-- Sealed financial claims (immutable artifacts)
+- Sealed financial artifacts (immutable artifacts)
 
 ---
 
@@ -24,6 +27,11 @@ TradeOS uses AI to convert messy shipping documents into schema-bound events, th
 This repository currently contains:
 
 - `apps/web`: Vite + React landing + console demo
+- Console workspaces simulation for:
+  - AI customs agent
+  - predictive logistics
+  - invoice factoring
+  - actionable step controls (`Run Intake`, `Recompute Forecast`, `Issue Advance`, `Run Full Chain`)
 - `packages/config-ts`: shared TypeScript config package
 - `packages/types`: shared domain types package (`@truthgrid/types`)
 - `packages/crypto`: shared crypto utilities package (`@truthgrid/crypto`)

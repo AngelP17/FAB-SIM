@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import type { LedgerEntry, EventType } from "@truthgrid/types";
 import { cn } from "@/lib/utils";
 
@@ -135,58 +135,57 @@ export function EventTape({ entries, onSelect, selectedSeq }: EventTapeProps) {
           const color = TYPE_COLOR[t];
           const isSelected = selectedSeq === e.seq || selectedIndex === idx;
 
-          return (
-            <Fragment key={e.seq}>
-              {/* Desktop Row */}
-              <button
-                onClick={() => handleSelect(e, idx)}
+          return [
+            // Desktop row
+            <button
+              key={`${e.seq}-desktop`}
+              onClick={() => handleSelect(e, idx)}
+              className={cn(
+                "hidden sm:grid w-full text-left grid-cols-[70px_100px_130px_140px_1fr] gap-2 px-3 py-2 border-b border-neutral-800/50 cursor-pointer font-mono text-[11px] transition-colors min-h-[44px] items-center",
+                isSelected ? "bg-neutral-800/60" : "hover:bg-neutral-800/30",
+                idx % 2 === 0 ? "bg-[#0a0a0a]" : "bg-[#0d0d0d]"
+              )}
+            >
+              <span className="text-neutral-500">{String(e.seq).padStart(6, "0")}</span>
+              <span className="text-neutral-400">{formatTs(e.record.committedAt)}</span>
+              <span 
                 className={cn(
-                  "hidden sm:grid w-full text-left grid-cols-[70px_100px_130px_140px_1fr] gap-2 px-3 py-2 border-b border-neutral-800/50 cursor-pointer font-mono text-[11px] transition-colors min-h-[44px] items-center",
-                  isSelected ? "bg-neutral-800/60" : "hover:bg-neutral-800/30",
-                  idx % 2 === 0 ? "bg-[#0a0a0a]" : "bg-[#0d0d0d]"
+                  "font-bold px-1.5 py-0.5 rounded text-[10px] w-fit",
+                  TYPE_BG[t],
+                  TYPE_BORDER[t]
                 )}
+                style={{ color }}
               >
-                <span className="text-neutral-500">{String(e.seq).padStart(6, "0")}</span>
-                <span className="text-neutral-400">{formatTs(e.record.committedAt)}</span>
-                <span 
-                  className={cn(
-                    "font-bold px-1.5 py-0.5 rounded text-[10px] w-fit",
-                    TYPE_BG[t],
-                    TYPE_BORDER[t]
-                  )}
-                  style={{ color }}
-                >
-                  {t}
-                </span>
-                <span className="text-neutral-400">{shortHex(e.eventHash)}</span>
-                <span className="text-neutral-500 truncate">{e.record.sourceId}</span>
-              </button>
-              
-              {/* Mobile Row */}
-              <button
-                onClick={() => handleSelect(e, idx)}
+                {t}
+              </span>
+              <span className="text-neutral-400">{shortHex(e.eventHash)}</span>
+              <span className="text-neutral-500 truncate">{e.record.sourceId}</span>
+            </button>,
+            // Mobile row
+            <button
+              key={`${e.seq}-mobile`}
+              onClick={() => handleSelect(e, idx)}
+              className={cn(
+                "sm:hidden w-full text-left grid grid-cols-[60px_80px_1fr_100px] gap-2 px-3 py-2.5 border-b border-neutral-800/50 cursor-pointer font-mono text-[11px] transition-colors min-h-[48px] items-center",
+                isSelected ? "bg-neutral-800/60" : "hover:bg-neutral-800/30",
+                idx % 2 === 0 ? "bg-[#0a0a0a]" : "bg-[#0d0d0d]"
+              )}
+            >
+              <span className="text-neutral-500">{String(e.seq).padStart(4, "0")}</span>
+              <span 
                 className={cn(
-                  "sm:hidden w-full text-left grid grid-cols-[60px_80px_1fr_100px] gap-2 px-3 py-2.5 border-b border-neutral-800/50 cursor-pointer font-mono text-[11px] transition-colors min-h-[48px] items-center",
-                  isSelected ? "bg-neutral-800/60" : "hover:bg-neutral-800/30",
-                  idx % 2 === 0 ? "bg-[#0a0a0a]" : "bg-[#0d0d0d]"
+                  "font-bold px-1 py-0.5 rounded text-[9px] w-fit truncate",
+                  TYPE_BG[t],
+                  TYPE_BORDER[t]
                 )}
+                style={{ color }}
               >
-                <span className="text-neutral-500">{String(e.seq).padStart(4, "0")}</span>
-                <span 
-                  className={cn(
-                    "font-bold px-1 py-0.5 rounded text-[9px] w-fit truncate",
-                    TYPE_BG[t],
-                    TYPE_BORDER[t]
-                  )}
-                  style={{ color }}
-                >
-                  {t.replace("_", " ")}
-                </span>
-                <span className="text-neutral-400 truncate">{shortHex(e.eventHash, 4, 4)}</span>
-                <span className="text-neutral-500 text-right text-[10px]">{formatTimeMobile(e.record.committedAt)}</span>
-              </button>
-            </Fragment>
-          );
+                {t.replace("_", " ")}
+              </span>
+              <span className="text-neutral-400 truncate">{shortHex(e.eventHash, 4, 4)}</span>
+              <span className="text-neutral-500 text-right text-[10px]">{formatTimeMobile(e.record.committedAt)}</span>
+            </button>
+          ];
         })}
       </div>
     </div>

@@ -17,42 +17,42 @@ import { cn } from "@/lib/utils";
 
 const DEMO_STEPS = [
   {
-    id: "setup",
-    title: "Factory Setup",
-    duration: "Day 1",
-    description: "Deploy agents and configure material schema",
+    id: "customs",
+    title: "AI Customs Agent",
+    duration: "Service 1/3",
+    description: "Ingest declarations and convert packets into structured customs events",
     icon: Factory,
     events: [
-      { time: "09:00", action: "Install FAB-SIM agent", status: "complete" },
-      { time: "09:15", action: "Connect to PLC systems", status: "complete" },
-      { time: "09:30", action: "Configure material schema", status: "complete" },
-      { time: "09:45", action: "First event captured", status: "complete" }
+      { time: "09:00", action: "Broker packet received", status: "complete" },
+      { time: "09:02", action: "HS and duty class extraction", status: "complete" },
+      { time: "09:04", action: "Entry normalized to schema", status: "complete" },
+      { time: "09:05", action: "Customs event sealed", status: "complete" }
     ]
   },
   {
-    id: "operations",
-    title: "Daily Operations",
-    duration: "Ongoing",
-    description: "Automatic event capture during production",
+    id: "logistics",
+    title: "Predictive Logistics",
+    duration: "Service 2/3",
+    description: "Forecast route and delay risks from customs-linked shipment events",
     icon: Database,
     events: [
-      { time: "10:23", action: "Material received: Copper Wire (500kg)", status: "complete" },
-      { time: "11:45", action: "Production batch started", status: "complete" },
-      { time: "14:30", action: "Scrap recorded: 12.5kg", status: "complete" },
-      { time: "16:15", action: "Batch completed", status: "complete" }
+      { time: "10:23", action: "Route inference: SHENZHEN -> VAN", status: "complete" },
+      { time: "10:25", action: "ETA drift forecast: +19h", status: "complete" },
+      { time: "10:27", action: "Port congestion risk: 0.82", status: "complete" },
+      { time: "10:28", action: "Forecast event chained", status: "complete" }
     ]
   },
   {
-    id: "calculation",
-    title: "Duty Calculation",
-    duration: "Automated",
-    description: "System calculates recoverable duty",
+    id: "factoring",
+    title: "Invoice Factoring",
+    duration: "Service 3/3",
+    description: "Execute risk-adjusted factoring decisions from verified logistics evidence",
     icon: BarChart3,
     events: [
-      { time: "00:00", action: "Daily batch processing started", status: "complete" },
-      { time: "00:02", action: "Material losses aggregated", status: "complete" },
-      { time: "00:03", action: "Duty calculated: $847.32", status: "complete" },
-      { time: "00:05", action: "Claim sealed and logged", status: "complete" }
+      { time: "11:00", action: "Invoice linked to customs + route events", status: "complete" },
+      { time: "11:01", action: "Policy model score: LOW-RISK", status: "complete" },
+      { time: "11:02", action: "Advance approved: 73% ($32,850)", status: "complete" },
+      { time: "11:03", action: "Factoring execution sealed", status: "complete" }
     ]
   },
   {
@@ -71,42 +71,41 @@ const DEMO_STEPS = [
 ];
 
 const CONSOLE_OUTPUTS: Record<string, string[]> = {
-  setup: [
-    "> Installing FAB-SIM agent v2.1.0...",
-    "> Connecting to PLC at 192.168.1.100...",
+  customs: [
+    "> AI Customs Agent intake started...",
+    "> Packet source: broker_feed_03",
     "> Schema validation: PASSED",
-    "> Material types loaded: 47",
-    "> Agent status: ACTIVE",
-    "> First event: CONFIG_COMMIT"
+    "> Fields extracted: 47",
+    "> Entity confidence: 0.96",
+    "> Event type: CUSTOMS_ENTRY_NORMALIZED"
   ],
-  operations: [
-    "> Event: MATERIAL_RECEIVED",
-    "  Material: copper_wire_001",
-    "  Quantity: 500.00 kg",
+  logistics: [
+    "> Event: LOGISTICS_FORECAST",
+    "  Lane: SHENZHEN -> VANCOUVER",
+    "  ETA variance: +19h",
     "  Hash: 0x7a3f...e291",
     "",
-    "> Event: PRODUCTION_START",
-    "  Batch: BT-2024-001847",
+    "> Event: EXCEPTION_RISK_SIGNAL",
+    "  Risk class: PORT_CONGESTION",
     "",
-    "> Event: MATERIAL_LOSS",
-    "  Type: production_scrap",
-    "  Quantity: 12.50 kg",
+    "> Event: ROUTE_REPLAN_PROPOSAL",
+    "  Confidence: 82%",
+    "  Source: predictive_engine_01",
     "  Hash: 0x9b4c...f847"
   ],
-  calculation: [
-    "> Daily duty calculation",
-    "  Period: 2024-01-15",
-    "  Total losses: 12.50 kg",
-    "  Material value: $2,500.00",
-    "  Duty rate: 2.5%",
-    "  Recoverable: $62.50",
+  factoring: [
+    "> Invoice factoring decision",
+    "  Invoice face: $45,000.00",
+    "  Logistics risk: MODERATE",
+    "  Policy: TOS-FACTOR-V2",
+    "  Advance approved: $32,850.00",
     "",
     "> Merkle root computed",
     "  Root: 0x7d2a...9e4b1c",
     "  Leaves: 47",
     "",
-    "> Claim: DUTY_SEALED",
-    "  Amount: $847.32 (MTD)"
+    "> Event: INVOICE_EXECUTION_SEALED",
+    "  Status: READY_FOR_PAYOUT"
   ],
   audit: [
     "> Auditor access granted",
@@ -188,8 +187,8 @@ export function ClientDemoSection() {
             See How It Works
           </h2>
           <p className="text-base lg:text-lg text-neutral-500 leading-relaxed">
-            Walk through a complete manufacturing scenario—from setup to audit.
-            This is what your team will experience.
+            Walk through the in-platform services: AI customs agent, predictive logistics,
+            and invoice factoring with deterministic auditability.
           </p>
         </div>
 
@@ -294,9 +293,9 @@ export function ClientDemoSection() {
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-black text-sm font-medium rounded-lg hover:bg-neutral-200 transition-colors"
               >
                 {isPlaying ? (
-                  <><Pause className="w-4 h-4" />Pause</>
+                  <span className="inline-flex items-center gap-2"><Pause className="w-4 h-4" />Pause</span>
                 ) : (
-                  <><Play className="w-4 h-4" />Play Demo</>
+                  <span className="inline-flex items-center gap-2"><Play className="w-4 h-4" />Play Demo</span>
                 )}
               </button>
               <button
@@ -372,21 +371,21 @@ export function ClientDemoSection() {
             <div className="grid grid-cols-3 gap-3">
               <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-3 text-center">
                 <div className="text-xl font-mono font-bold text-white">
-                  {activeStep === 0 ? "47" : activeStep === 1 ? "1.2k" : activeStep === 2 ? "$847" : "100%"}
+                  {activeStep === 0 ? "47" : activeStep === 1 ? "82%" : activeStep === 2 ? "$32.8k" : "100%"}
                 </div>
                 <div className="text-[10px] text-neutral-500 uppercase">
-                  {activeStep === 0 ? "Materials" : activeStep === 1 ? "Events" : activeStep === 2 ? "Saved" : "Verified"}
+                  {activeStep === 0 ? "Fields" : activeStep === 1 ? "Risk Score" : activeStep === 2 ? "Advance" : "Verified"}
                 </div>
               </div>
               <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-3 text-center">
                 <div className="text-xl font-mono font-bold text-white">
-                  {activeStep === 0 ? "<1m" : activeStep === 1 ? "Real" : activeStep === 2 ? "Daily" : "<50ms"}
+                  {activeStep === 0 ? "<1m" : activeStep === 1 ? "Live" : activeStep === 2 ? "Instant" : "<50ms"}
                 </div>
                 <div className="text-[10px] text-neutral-500 uppercase">Time</div>
               </div>
               <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-3 text-center">
                 <div className="text-xl font-mono font-bold text-white">
-                  {activeStep === 3 ? "SHA" : "Merkle"}
+                  {activeStep === 2 ? "Policy" : "Merkle"}
                 </div>
                 <div className="text-[10px] text-neutral-500 uppercase">Proof</div>
               </div>
@@ -398,7 +397,7 @@ export function ClientDemoSection() {
                 onClick={() => setIsPlaying(!isPlaying)}
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-black text-sm font-medium rounded-lg"
               >
-                {isPlaying ? <><Pause className="w-4 h-4" />Pause</> : <><Play className="w-4 h-4" />Play</>}
+                {isPlaying ? <span className="inline-flex items-center gap-2"><Pause className="w-4 h-4" />Pause</span> : <span className="inline-flex items-center gap-2"><Play className="w-4 h-4" />Play</span>}
               </button>
               <button
                 onClick={() => { setActiveStep(0); setIsPlaying(false); }}

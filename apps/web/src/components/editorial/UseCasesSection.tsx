@@ -13,47 +13,47 @@ import { useGsapReveal } from "@/hooks/useGsapReveal";
 const USE_CASES = [
   {
     icon: Factory,
-    title: "Manufacturing Duty Drawback",
-    subtitle: "Core Application",
-    description: "Manufacturers import raw materials duty-paid, then export finished goods. TRADEOS creates tamper-proof records of material losses during production—scrap, waste, and shrinkage—enabling legally defensible duty recovery claims.",
+    title: "AI Customs Agent",
+    subtitle: "Platform Service",
+    description: "TradeOS continuously ingests customs declarations, invoices, packing lists, and broker packets. The AI Customs Agent converts unstructured trade documents into schema-bound events ready for compliance and financial decisions.",
     benefits: [
-      "Automatic material loss tracking",
-      "Cryptographic proof of destruction",
-      "Audit-ready claim documentation",
-      "99.7% claim acceptance rate"
+      "Automated document-to-entry conversion",
+      "HS code and duty class normalization",
+      "Confidence-scored extraction output",
+      "Immediate chain-of-custody evidence"
     ],
-    stat: "$2.4M",
-    statLabel: "Avg. annual recovery",
-    href: "/#/demo"
+    stat: "96%",
+    statLabel: "Field confidence",
+    href: "/#/ai"
   },
   {
     icon: Scale,
-    title: "Regulatory Compliance",
-    subtitle: "Legal Defense",
-    description: "When customs authorities challenge duty claims, TRADEOS provides mathematical proof of every material loss event. No more relying on spreadsheets and signed affidavits—just cryptographic verification.",
+    title: "Predictive Logistics",
+    subtitle: "Platform Service",
+    description: "Using customs-verified events, TradeOS predicts route delays, congestion exposure, and landed-cost variance. Planners receive deterministic, replayable risk signals before disruptions hit margin.",
     benefits: [
-      "Tamper-evident audit trails",
-      "Independent verification",
-      "Legal hold documentation",
-      "Dispute resolution support"
+      "Lane-level ETA and exception forecasting",
+      "Risk event generation for operations teams",
+      "Reproducible model outputs",
+      "Cross-border movement visibility"
     ],
-    stat: "100%",
-    statLabel: "Defensible in court",
+    stat: "82%",
+    statLabel: "Forecast precision",
     href: "/#/console"
   },
   {
     icon: Globe2,
-    title: "Multi-Jurisdictional Trade",
-    subtitle: "Global Operations",
-    description: "For manufacturers operating across multiple customs territories, TRADEOS maintains separate, compliant audit trails for each jurisdiction—supporting NAFTA, EU, and other trade agreement requirements.",
+    title: "Invoice Factoring",
+    subtitle: "Platform Service",
+    description: "TradeOS combines customs truth and logistics forecasts to produce factoring decisions with explicit policy logic, risk scoring, and cryptographic proof of every input used in approval.",
     benefits: [
-      "Jurisdiction-specific schemas",
-      "Multi-currency duty calculations",
-      "Cross-border provenance",
-      "Agreement-compliant exports"
+      "Risk-adjusted advance-rate calculations",
+      "Evidence-linked financing packets",
+      "Policy-versioned underwriting",
+      "Audit-ready payout execution trail"
     ],
-    stat: "45+",
-    statLabel: "Countries supported",
+    stat: "73%",
+    statLabel: "Typical advance",
     href: "/#/console"
   },
   {
@@ -126,8 +126,8 @@ export function UseCasesSection() {
           </h2>
           
           <p className="text-lg lg:text-xl text-neutral-500 leading-relaxed max-w-2xl">
-            TRADEOS applies cryptographic verification to any scenario requiring 
-            tamper-proof manufacturing telemetry and defensible audit trails.
+            TRADEOS applies cryptographic verification across customs automation,
+            predictive logistics, and invoice factoring workflows.
           </p>
         </div>
 

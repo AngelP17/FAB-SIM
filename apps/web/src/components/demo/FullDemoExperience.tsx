@@ -49,24 +49,24 @@ type DemoStep = {
 const DEMO_STEPS: DemoStep[] = [
   {
     id: "intro",
-    title: "Welcome to TRADEOS",
-    subtitle: "Evidence-First Audit Infrastructure",
-    description: "See how manufacturing events become auditable, immutable records.",
+    title: "AI Customs Agent",
+    subtitle: "Service 1 of 3",
+    description: "TradeOS AI agent classifies customs packets and opens a deterministic case file.",
     icon: Factory,
-    narrative: "You're the operations manager at a semiconductor fab. Material losses occur daily—but now every gram is tracked with cryptographic precision.",
+    narrative: "Inbound documents from brokers, invoices, and declarations are parsed by the AI Customs Agent. Each extraction is schema-bound and timestamped to create a verifiable customs case before operations begin.",
     highlights: [
-      "Every event receives a unique SHA-256 hash",
-      "Events are chained: each references the previous",
-      "No data can be altered without breaking the chain"
+      "HS code candidates normalized into a canonical customs schema",
+      "Entity extraction includes counterparty, lane, and duty class",
+      "Every extracted field enters an immutable event trail"
     ],
     consoleOutput: [
       "> TRADEOS Console v2.1.0",
       "> Initializing...",
-      "> Connected to: litho_bay_4, CMP-03",
-      "> Schema: DUTYOS:MATERIAL_LOSS:V1",
+      "> Connected to: customs_intake, broker_feed",
+      "> Schema: CUSTOMS_AGENT:ENTRY:V1",
       "> Status: ACTIVE",
       ">",
-      "> Ready to demonstrate material loss tracking..."
+      "> Ready to ingest customs packets..."
     ],
     showEventTape: true,
     showMerkle: false,
@@ -75,26 +75,26 @@ const DEMO_STEPS: DemoStep[] = [
   },
   {
     id: "material-loss",
-    title: "Material Loss Event",
-    subtitle: "Real-Time Event Capture",
-    description: "A thermal crack is detected in wafer processing. The system immediately records this as a MATERIAL_LOSS event.",
+    title: "Predictive Logistics",
+    subtitle: "Service 2 of 3",
+    description: "The logistics model forecasts route, delay risk, and landed-cost drift from customs events.",
     icon: Database,
-    narrative: "At 10:23 AM, a thermal crack is detected in wafer lot MAT-2024-001. Within milliseconds, the FAB-SIM agent captures this as a cryptographically sealed event.",
+    narrative: "Once customs entries are normalized, Predictive Logistics projects ETA variance, exception probability, and bonded inventory impact. These predictions are versioned as deterministic events.",
     highlights: [
-      "Event ID: evt-0001 with unique hash 0x7a3f...e291",
-      "Links to previous event (genesis for first event)",
-      "Schema version ensures data consistency"
+      "Lane-level forecasts with confidence scoring",
+      "Risk spikes create actionable derivative events",
+      "Predictions are replayable from the same seed"
     ],
     consoleOutput: [
-      "> Event captured: MATERIAL_LOSS",
+      "> Event captured: LOGISTICS_FORECAST",
       "  Time: 2024-01-15T10:23:00.000Z",
-      "  Material: MAT-2024-001",
-      "  Quantity: 4.0000 units",
-      "  Reason: CrackThermal",
-      "  Source: litho_bay_4",
+      "  Route: SHENZHEN -> VANCOUVER",
+      "  ETA drift: +19h",
+      "  Risk score: 0.82",
+      "  Source: predictive_engine_01",
       ">",
       "> Computing event hash...",
-      "  Input: schema(1) + domain(DUTYOS) + canonical(record)",
+      "  Input: schema(1) + domain(LOGISTICS) + canonical(record)",
       "  Output: 0x7a3f8d2e...91b4c8e2",
       ">",
       "> Computing ledger hash...",
@@ -109,28 +109,28 @@ const DEMO_STEPS: DemoStep[] = [
   },
   {
     id: "duty-calculation",
-    title: "Duty Calculation",
-    subtitle: "Automated Derivative Events",
-    description: "The system automatically calculates recoverable duty based on material value and duty rate.",
+    title: "Invoice Factoring",
+    subtitle: "Service 3 of 3",
+    description: "Factoring decisions are produced from customs truth + logistics forecasts + deterministic risk rules.",
     icon: Calculator,
-    narrative: "DutyOS detects the material loss and automatically calculates the recoverable duty: $45,000 × 3.4% = $1,530. This creates a DUTY_CALCULATED event that references the original loss.",
+    narrative: "TradeOS computes factoring eligibility and advance rate using verified customs records and predicted transit outcomes. The resulting financing offer is sealed as an auditable event.",
     highlights: [
-      "Links to source event via sourceEventHash",
-      "Material value: $45,000.00 at 3.4% duty rate",
-      "Calculated duty: $1,530.00"
+      "Advance rate computed from risk-adjusted policy",
+      "Links directly to customs and forecast source events",
+      "Offer output is cryptographically sealed"
     ],
     consoleOutput: [
-      "> Processing duty calculation...",
-      "  Source event: 0x7a3f...e291",
-      "  Material value: $45,000.00",
-      "  Duty rate: 0.034 (3.4%)",
-      "  Rounding: HalfUp",
+      "> Processing factoring model...",
+      "  Source customs event: 0x7a3f...e291",
+      "  Source logistics event: 0x9b4c...f847",
+      "  Invoice face value: $45,000.00",
+      "  Risk policy: TOS-FACTOR-V2",
       "",
-      "> Calculated: $1,530.00",
+      "> Approved advance: $32,850.00 (73%)",
       ">",
-      "> Creating DUTY_CALCULATED event...",
+      "> Creating INVOICE_FACTORED event...",
       "  Event ID: evt-0002",
-      "  Links to: evt-0001 (MATERIAL_LOSS)",
+      "  Links to: evt-0001 (CUSTOMS + LOGISTICS)",
       "> Ledger hash: 0x9b4c...f847"
     ],
     showEventTape: true,
@@ -141,15 +141,15 @@ const DEMO_STEPS: DemoStep[] = [
   },
   {
     id: "duty-sealed",
-    title: "Claim Sealed",
+    title: "Execution Sealed",
     subtitle: "Final Authorization",
-    description: "An operator reviews and seals the duty claim, creating an immutable record ready for audit.",
+    description: "An operator reviews the factoring packet and seals execution for audit and payout.",
     icon: Shield,
-    narrative: "Operator_03 reviews the calculation, confirms accuracy, and seals the claim. This DUTY_SEALED event completes the workflow and makes the claim auditable.",
+    narrative: "Operator_03 reviews supporting proofs, confirms covenant checks, and seals execution. This event finalizes the platform service flow and prepares payout rails.",
     highlights: [
-      "Sealed by authorized operator",
-      "References the calculation event",
-      "Ready for CBSA audit"
+      "Sealed by authorized operations officer",
+      "References factoring calculation event",
+      "Ready for regulator and lender audit"
     ],
     consoleOutput: [
       "> Operator review initiated...",
@@ -161,8 +161,8 @@ const DEMO_STEPS: DemoStep[] = [
       "> ✓ Material value confirmed",
       "> ✓ Rate applied correctly",
       ">",
-      "> Sealing claim...",
-      "  Created: DUTY_SEALED event",
+      "> Sealing execution...",
+      "  Created: INVOICE_EXECUTION_SEALED event",
       "  Event ID: evt-0003",
       "  Ledger hash: 0x2d8e...a5c9"
     ],
@@ -267,13 +267,21 @@ const DEMO_STEPS: DemoStep[] = [
   }
 ];
 
+const PLATFORM_SERVICES = [
+  { title: "AI Customs Agent", subtitle: "Document-to-entry automation" },
+  { title: "Predictive Logistics", subtitle: "Route and risk forecasting" },
+  { title: "Invoice Factoring", subtitle: "Risk-scored financing execution" }
+];
+
 // Console component with typewriter effect
 function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }) {
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const consoleBodyRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [lines]);
+    const el = consoleBodyRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }, [lines.length]);
 
   return (
     <div data-terminal className="bg-neutral-950 border border-neutral-800 rounded-xl overflow-hidden">
@@ -291,7 +299,7 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
           <span className="text-[10px] font-mono text-neutral-500">Live</span>
         </div>
       </div>
-      <div className="p-3 sm:p-4 font-mono text-[11px] sm:text-[12px] h-48 sm:h-64 overflow-auto">
+      <div ref={consoleBodyRef} className="p-3 sm:p-4 font-mono text-[11px] sm:text-[12px] h-48 sm:h-64 overflow-auto">
         {lines.map((rawLine, i) => {
           const line = typeof rawLine === "string" ? rawLine : "";
           return (
@@ -313,7 +321,6 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
         {isTyping && (
           <div className="inline-block w-2 h-4 bg-white/50 animate-pulse mt-1" />
         )}
-        <div ref={bottomRef} />
       </div>
     </div>
   );
@@ -450,6 +457,7 @@ export function FullDemoExperience() {
   }, []);
 
   const currentStepData = DEMO_STEPS[currentStep];
+  const activeServiceIndex = currentStep === 0 ? 0 : currentStep === 1 ? 1 : 2;
 
   // Typewriter effect for console
   useEffect(() => {
@@ -553,9 +561,10 @@ export function FullDemoExperience() {
     <section 
       ref={sectionRef}
       id="full-demo"
-      className="min-h-screen bg-black py-8 lg:py-12 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen tradeos-atmo py-8 lg:py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-[1600px] mx-auto">
+      <div className="pointer-events-none absolute inset-0 tradeos-atmo-grid opacity-15" />
+      <div className="relative z-10 max-w-[1600px] mx-auto">
         {/* Header */}
         <div className="mb-6" data-reveal>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -564,11 +573,20 @@ export function FullDemoExperience() {
                 <Play className="w-3.5 h-3.5 text-neutral-400" />
                 <span className="text-[10px] font-mono text-neutral-400 tracking-widest uppercase">Interactive Demo</span>
               </div>
+              <div className="mb-3">
+                <a
+                  href="/#/"
+                  className="inline-flex items-center gap-2 text-[11px] font-mono text-neutral-500 hover:text-neutral-300 transition-colors"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                  Back to Landing
+                </a>
+              </div>
               <h2 className="font-display text-3xl sm:text-4xl text-white leading-tight tracking-tight">
                 TRADEOS Demo Experience
               </h2>
               <p className="text-neutral-500 mt-2 max-w-2xl">
-                Walk through a complete manufacturing scenario—from material loss detection to audit-ready sealed claims.
+                Walk through TradeOS platform services end-to-end: AI customs intake, predictive logistics, and invoice factoring with cryptographic proof rails.
               </p>
             </div>
 
@@ -589,9 +607,15 @@ export function FullDemoExperience() {
                 className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-colors min-h-[44px]"
               >
                 {isPlaying ? (
-                  <><Pause className="w-5 h-5 text-white" /><span className="text-sm text-white hidden sm:inline">Pause</span></>
+                  <span className="inline-flex items-center gap-2">
+                    <Pause className="w-5 h-5 text-white" />
+                    <span className="text-sm text-white hidden sm:inline">Pause</span>
+                  </span>
                 ) : (
-                  <><Play className="w-5 h-5 text-white" /><span className="text-sm text-white hidden sm:inline">Play</span></>
+                  <span className="inline-flex items-center gap-2">
+                    <Play className="w-5 h-5 text-white" />
+                    <span className="text-sm text-white hidden sm:inline">Play</span>
+                  </span>
                 )}
               </button>
               <button
@@ -617,6 +641,32 @@ export function FullDemoExperience() {
               </button>
             </div>
           </div>
+        </div>
+
+        <div className="mb-6 grid gap-3 sm:grid-cols-3" data-reveal>
+          {PLATFORM_SERVICES.map((service, index) => {
+            const isActive = activeServiceIndex === index;
+            const isDone = activeServiceIndex > index;
+            return (
+              <div
+                key={service.title}
+                className={cn(
+                  "rounded-xl border px-4 py-3 transition-colors",
+                  isActive
+                    ? "border-cyan-200/40 bg-cyan-300/10"
+                    : isDone
+                      ? "border-emerald-200/30 bg-emerald-300/10"
+                      : "border-white/10 bg-black/40"
+                )}
+              >
+                <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 mb-1">
+                  Service {index + 1}
+                </div>
+                <div className="text-sm font-medium text-white">{service.title}</div>
+                <div className="text-[11px] text-neutral-400">{service.subtitle}</div>
+              </div>
+            );
+          })}
         </div>
 
         {/* Step Navigator */}

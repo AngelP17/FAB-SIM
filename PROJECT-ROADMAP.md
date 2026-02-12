@@ -43,6 +43,10 @@ Last updated: 2026-02-12
 - audit export artifacts (JSON/CSV + proof bundle)
 - operator/entity filtering in console
 - scenario presets for GTM demos
+- service-chain walkthroughs:
+  - AI customs agent
+  - predictive logistics
+  - invoice factoring
 
 ### Phase D - Production Hardening
 
