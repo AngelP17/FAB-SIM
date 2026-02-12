@@ -29,7 +29,9 @@ export default function AiDemoPage() {
   const activeTabData = TABS.find(t => t.id === activeTab)!;
 
   return (
-    <div className="min-h-screen bg-black text-neutral-400 font-sans">
+    <div className="relative min-h-screen tradeos-atmo text-neutral-400 font-sans">
+      <div className="pointer-events-none absolute inset-0 tradeos-atmo-grid opacity-15" />
+      <div className="relative z-10">
       {/* Header */}
       <header className="border-b border-neutral-900">
         <div className="flex items-center justify-between px-4 py-3">
@@ -42,7 +44,7 @@ export default function AiDemoPage() {
                 <h1 className="font-mono text-sm font-bold text-white tracking-wide">
                   TRADEOS<span className="text-neutral-500">::</span>AI
                 </h1>
-                <p className="text-[10px] text-neutral-600 font-mono">Document Intelligence & Extraction Pipeline</p>
+                <p className="text-[10px] text-neutral-600 font-mono">AI Customs Agent Service Layer</p>
               </div>
             </a>
           </div>
@@ -147,6 +149,7 @@ export default function AiDemoPage() {
           </div>
         </div>
       </main>
+      </div>
     </div>
   );
 }

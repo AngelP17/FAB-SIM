@@ -43,6 +43,9 @@
     --sidebar-accent-foreground: 0 0% 96%;
     --sidebar-border: 0 0% 18%;
     --sidebar-ring: 0 0% 100%;
+    --tradeos-cyan: 56 189 248;
+    --tradeos-amber: 251 146 60;
+    --tradeos-emerald: 16 185 129;
   }
 }
 
@@ -105,6 +108,21 @@
   
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .tradeos-atmo {
+    background-color: #060708;
+    background-image:
+      radial-gradient(circle at 14% 20%, rgba(var(--tradeos-cyan), 0.15), transparent 34%),
+      radial-gradient(circle at 86% 16%, rgba(var(--tradeos-amber), 0.14), transparent 32%),
+      radial-gradient(circle at 52% 82%, rgba(var(--tradeos-emerald), 0.1), transparent 36%);
+  }
+
+  .tradeos-atmo-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 42px 42px;
   }
 }
 

@@ -12,10 +12,10 @@ TradeOS is the operating system for free trade zones.
 
 Flow:
 
-1. AI ingestion converts messy documents into structured records
-2. Deterministic event modeling derives reproducible state transitions
-3. Tamper-evident ledgering seals provenance (hash chain + Merkle)
-4. DutyOS computes sealed financial claims
+1. AI customs agent converts messy trade documents into structured customs records
+2. Predictive logistics derives route/delay risk events from normalized entries
+3. Invoice factoring computes risk-scored financing decisions from verified events
+4. Tamper-evident ledgering seals provenance (hash chain + Merkle) for replay/audit
 
 ---
 
@@ -40,6 +40,9 @@ Routes:
 Key implemented UI blocks:
 
 - hero + editorial sections
+- service-chain messaging: AI customs -> predictive logistics -> invoice factoring
+- console workspaces tab flow with mock operational I/O for the three services
+- actionable workspace progression controls (run, advance step, reset, run full chain)
 - event tape
 - Merkle explorer
 - lineage graph
