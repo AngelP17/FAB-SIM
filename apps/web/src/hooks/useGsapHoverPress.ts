@@ -24,12 +24,16 @@ export function useGsapHoverPress(container: React.RefObject<HTMLElement | null>
       el.addEventListener("mouseleave", onLeave);
       el.addEventListener("mousedown", onDown);
       el.addEventListener("mouseup", onUp);
+      el.addEventListener("touchstart", onDown, { passive: true });
+      el.addEventListener("touchend", onUp, { passive: true });
 
       cleanups.push(() => {
         el.removeEventListener("mouseenter", onEnter);
         el.removeEventListener("mouseleave", onLeave);
         el.removeEventListener("mousedown", onDown);
         el.removeEventListener("mouseup", onUp);
+        el.removeEventListener("touchstart", onDown);
+        el.removeEventListener("touchend", onUp);
       });
     });
 

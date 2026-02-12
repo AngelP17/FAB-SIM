@@ -22,6 +22,8 @@ import {
   Sparkles
 } from "lucide-react";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
+import { useGsapHoverPress } from "@/hooks/useGsapHoverPress";
+import { useGsapTerminal } from "@/hooks/useGsapTerminal";
 import { EventTape } from "@/components/EventTape";
 import { MerkleExplorer } from "@/components/MerkleExplorer";
 import { LineageGraph } from "@/components/LineageGraph";
@@ -274,7 +276,7 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
   }, [lines]);
 
   return (
-    <div className="bg-neutral-950 border border-neutral-800 rounded-xl overflow-hidden">
+    <div data-terminal className="bg-neutral-950 border border-neutral-800 rounded-xl overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 bg-neutral-900 border-b border-neutral-800">
         <div className="flex items-center gap-3">
           <div className="flex gap-2">
@@ -282,7 +284,7 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
             <div className="w-3 h-3 rounded-full bg-amber-500/70" />
             <div className="w-3 h-3 rounded-full bg-green-500/70" />
           </div>
-          <span className="ml-3 text-[11px] font-mono text-neutral-500">truthgrid-demo — zsh</span>
+          <span className="ml-3 text-[11px] font-mono text-neutral-500">tradeos-demo — zsh</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -293,6 +295,7 @@ function DemoConsole({ lines, isTyping }: { lines: string[]; isTyping: boolean }
         {lines.map((line, i) => (
           <div 
             key={i} 
+            data-terminal-line
             className={cn(
               "py-0.5",
               line.startsWith(">") ? "text-white" : 
@@ -332,6 +335,7 @@ function StepIndicator({
         
         return (
           <button
+            data-press
             key={step.id}
             onClick={() => onStepClick(index)}
             className={cn(
@@ -410,22 +414,36 @@ function NarrativeCard({ step }: { step: DemoStep }) {
 
 export function FullDemoExperience() {
   const sectionRef = useRef<HTMLElement>(null);
+  const consoleRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [entries, setEntries] = useState<LedgerEntry[]>([]);
   const [selectedEntry, setSelectedEntry] = useState<LedgerEntry | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [copiedSeed, setCopiedSeed] = useState(false);
-  useGsapReveal(sectionRef, []);
+  useGsapReveal(sectionRef, [currentStep]);
+  useGsapHoverPress(sectionRef);
+  useGsapTerminal(consoleRef, [currentStep, displayedLines.length]);
+
+  const loadEntries = async () => {
+    setIsLoading(true);
+    setLoadError(null);
+    try {
+      const data = await generateSampleLedger();
+      setEntries(data);
+    } catch {
+      setLoadError("Unable to initialize deterministic ledger for the demo.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Load sample data
   useEffect(() => {
-    generateSampleLedger().then(data => {
-      setEntries(data);
-      setIsLoading(false);
-    });
+    void loadEntries();
   }, []);
 
   const currentStepData = DEMO_STEPS[currentStep];
@@ -506,6 +524,23 @@ export function FullDemoExperience() {
     );
   }
 
+  if (loadError) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center px-4">
+        <div className="max-w-md w-full border border-neutral-800 bg-neutral-950 rounded-xl p-6 text-center">
+          <div className="text-white text-sm font-medium mb-2">TradeOS Full Demo Initialization Failed</div>
+          <div className="text-neutral-500 text-sm mb-5">{loadError}</div>
+          <button
+            onClick={() => { void loadEntries(); }}
+            className="px-4 py-2 rounded bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section 
       ref={sectionRef}
@@ -514,7 +549,7 @@ export function FullDemoExperience() {
     >
       <div className="max-w-[1600px] mx-auto">
         {/* Header */}
-        <div className="mb-6">
+        <div className="mb-6" data-reveal>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-4">
@@ -532,6 +567,7 @@ export function FullDemoExperience() {
             {/* Playback Controls */}
             <div className="flex items-center gap-2">
               <button
+                data-press
                 onClick={handlePrev}
                 disabled={currentStep === 0}
                 className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
@@ -540,6 +576,7 @@ export function FullDemoExperience() {
                 <ChevronLeft className="w-5 h-5 text-white" />
               </button>
               <button
+                data-press
                 onClick={() => setIsPlaying(!isPlaying)}
                 className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-colors min-h-[44px]"
               >
@@ -550,6 +587,7 @@ export function FullDemoExperience() {
                 )}
               </button>
               <button
+                data-press
                 onClick={handleNext}
                 disabled={currentStep === DEMO_STEPS.length - 1}
                 className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
@@ -558,6 +596,7 @@ export function FullDemoExperience() {
                 <ChevronRight className="w-5 h-5 text-white" />
               </button>
               <button
+                data-press
                 onClick={() => {
                   setCurrentStep(0);
                   setIsPlaying(false);
@@ -573,7 +612,7 @@ export function FullDemoExperience() {
         </div>
 
         {/* Step Navigator */}
-        <div className="mb-6">
+        <div className="mb-6" data-reveal>
           <StepIndicator 
             steps={DEMO_STEPS} 
             currentStep={currentStep} 
@@ -582,11 +621,13 @@ export function FullDemoExperience() {
         </div>
 
         {/* Main Demo Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 lg:gap-6" data-reveal>
           {/* Left Column: Narrative + Console */}
           <div className="xl:col-span-4 space-y-4">
             <NarrativeCard step={currentStepData} />
-            <DemoConsole lines={displayedLines} isTyping={isTyping} />
+            <div ref={consoleRef}>
+              <DemoConsole lines={displayedLines} isTyping={isTyping} />
+            </div>
             
             {/* Quick Stats */}
             <div className="grid grid-cols-3 gap-3">
@@ -600,6 +641,7 @@ export function FullDemoExperience() {
               </div>
               <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-3 text-center">
                 <button
+                  data-press
                   onClick={copySeed}
                   className="w-full text-center group"
                 >
@@ -659,7 +701,7 @@ export function FullDemoExperience() {
         </div>
 
         {/* CTA Footer */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-neutral-950 border border-neutral-800 rounded-xl">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-neutral-950 border border-neutral-800 rounded-xl" data-reveal>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
               <Terminal className="w-5 h-5 text-white" />
@@ -671,6 +713,7 @@ export function FullDemoExperience() {
           </div>
           <div className="flex items-center gap-3">
             <a 
+              data-press
               href="/#/console"
               className="inline-flex items-center gap-2 px-4 py-2 bg-white text-black text-sm font-medium rounded-lg hover:bg-neutral-200 transition-colors"
             >

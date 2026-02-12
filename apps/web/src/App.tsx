@@ -23,20 +23,36 @@ function PageLoading({ text }: { text: string }) {
 }
 
 function App() {
-  // Simple hash-based routing for static deployment
-  const [currentPath, setCurrentPath] = useState(window.location.hash.slice(1) || "/");
+  const resolvePath = () => {
+    const hashPath = window.location.hash.slice(1);
+    if (hashPath) return hashPath;
+
+    const pathname = window.location.pathname || "/";
+    if (pathname === "/console" || pathname === "/ai" || pathname === "/demo") {
+      return pathname;
+    }
+    return "/";
+  };
+
+  // Hash-based routing with pathname fallback for direct links
+  const [currentPath, setCurrentPath] = useState(resolvePath());
 
   useEffect(() => {
     const handleHashChange = () => {
-      setCurrentPath(window.location.hash.slice(1) || "/");
+      setCurrentPath(resolvePath());
     };
 
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  // Handle initial load
+  // Normalize initial navigation to hash routes
   useEffect(() => {
+    const pathname = window.location.pathname || "/";
+    if (!window.location.hash && (pathname === "/console" || pathname === "/ai" || pathname === "/demo")) {
+      window.location.hash = pathname;
+      return;
+    }
     if (!window.location.hash) {
       window.location.hash = "/";
     }

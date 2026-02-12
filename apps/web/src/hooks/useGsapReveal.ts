@@ -18,16 +18,15 @@ export function useGsapReveal(container: React.RefObject<HTMLElement | null>, de
       const items = gsap.utils.toArray<HTMLElement>(
         container.current!.querySelectorAll("[data-reveal]")
       );
-      gsap.set(items, { opacity: 0, y: 10, filter: "blur(6px)" });
+      gsap.set(items, { opacity: 0, y: 8 });
 
       gsap.to(items, {
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
-        duration: 0.55,
+        duration: 0.42,
         ease: "power2.out",
-        stagger: 0.06,
-        delay: 0.05,
+        stagger: 0.04,
+        delay: 0.02,
       });
     }, container);
 

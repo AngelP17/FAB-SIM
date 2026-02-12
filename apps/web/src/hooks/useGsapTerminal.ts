@@ -5,7 +5,10 @@ function prefersReducedMotion() {
   return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 }
 
-export function useGsapTerminal(container: React.RefObject<HTMLElement | null>) {
+export function useGsapTerminal(
+  container: React.RefObject<HTMLElement | null>,
+  deps: unknown[] = []
+) {
   useEffect(() => {
     if (!container.current) return;
     if (prefersReducedMotion()) return;
@@ -32,5 +35,6 @@ export function useGsapTerminal(container: React.RefObject<HTMLElement | null>) 
     }, container);
 
     return () => ctx.revert();
-  }, [container]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 }
