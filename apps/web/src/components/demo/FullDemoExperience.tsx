@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import type { LedgerEntry } from "@/types";
+import type { LedgerEntry } from "@truthgrid/types";
 import { generateSampleLedger } from "@/lib/sampleData";
 import { cn } from "@/lib/utils";
 import { 
@@ -47,7 +47,7 @@ type DemoStep = {
 const DEMO_STEPS: DemoStep[] = [
   {
     id: "intro",
-    title: "Welcome to TRUTHGRID",
+    title: "Welcome to TRADEOS",
     subtitle: "Evidence-First Audit Infrastructure",
     description: "See how manufacturing events become auditable, immutable records.",
     icon: Factory,
@@ -58,7 +58,7 @@ const DEMO_STEPS: DemoStep[] = [
       "No data can be altered without breaking the chain"
     ],
     consoleOutput: [
-      "> TRUTHGRID Console v2.1.0",
+      "> TRADEOS Console v2.1.0",
       "> Initializing...",
       "> Connected to: litho_bay_4, CMP-03",
       "> Schema: DUTYOS:MATERIAL_LOSS:V1",
@@ -500,7 +500,7 @@ export function FullDemoExperience() {
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-neutral-600 font-mono text-sm flex items-center gap-2">
           <div className="w-4 h-4 border-2 border-neutral-800 border-t-white rounded-full animate-spin" />
-          Initializing TRUTHGRID Demo...
+          Initializing TRADEOS Demo...
         </div>
       </div>
     );
@@ -522,7 +522,7 @@ export function FullDemoExperience() {
                 <span className="text-[10px] font-mono text-neutral-400 tracking-widest uppercase">Interactive Demo</span>
               </div>
               <h2 className="font-display text-3xl sm:text-4xl text-white leading-tight tracking-tight">
-                TRUTHGRID Demo Experience
+                TRADEOS Demo Experience
               </h2>
               <p className="text-neutral-500 mt-2 max-w-2xl">
                 Walk through a complete manufacturing scenario—from material loss detection to audit-ready sealed claims.

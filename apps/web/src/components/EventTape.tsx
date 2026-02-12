@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback, useEffect } from "react";
-import type { LedgerEntry, EventType } from "@/types";
+import type { LedgerEntry, EventType } from "@truthgrid/types";
 import { cn } from "@/lib/utils";
 
 function shortHex(h: string, a = 6, b = 4) {

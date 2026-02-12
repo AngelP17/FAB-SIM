@@ -52,7 +52,7 @@ export function HeroSection() {
               <Terminal className="w-4 h-4 text-white" />
             </div>
             <span className="font-mono text-sm font-bold text-white tracking-wider">
-              TRUTHGRID
+              TRADEOS
             </span>
           </div>
           <div className="hidden md:flex items-center gap-8">

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import type { LedgerEntry } from "@/types";
-import { stableStringify, sha256Hex, utf8, hexToBytes } from "@/lib/crypto";
+import type { LedgerEntry } from "@truthgrid/types";
+import { stableStringify, sha256Hex, utf8, hexToBytes } from "@truthgrid/crypto";
 import { cn } from "@/lib/utils";
 import { Check, X, Copy, RefreshCw } from "lucide-react";
 

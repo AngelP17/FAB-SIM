@@ -29,7 +29,7 @@ function Footer() {
               <Terminal className="w-4 h-4 text-neutral-300" />
             </div>
             <span className="font-mono text-lg font-bold text-neutral-200">
-              TRUTHGRID
+              TRADEOS
             </span>
           </div>
           
@@ -56,7 +56,7 @@ function Footer() {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-[11px] font-mono text-neutral-600">
-              © 2025 TruthGrid Systems. All rights reserved.
+              © 2025 TradeOS Systems. All rights reserved.
             </p>
             <p className="text-[11px] font-mono text-neutral-600">
               SIMULATED / DETERMINISTIC — Not connected to live factory systems

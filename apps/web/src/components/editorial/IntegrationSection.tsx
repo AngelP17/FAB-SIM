@@ -21,7 +21,7 @@ const INTEGRATIONS = [
     icon: Factory,
     title: "Manufacturing",
     subtitle: "ERP & Shop Floor",
-    description: "Connect TRUTHGRID to your existing manufacturing infrastructure with drop-in agents",
+    description: "Connect TRADEOS to your existing manufacturing infrastructure with drop-in agents",
     steps: [
       {
         title: "Install FAB-SIM Agent",
@@ -113,8 +113,8 @@ const INTEGRATIONS = [
         description: "Sync events across regional instances",
         code: `{
   "sync": {
-    "us": "https://us.truthgrid.io",
-    "eu": "https://eu.truthgrid.io"
+    "us": "https://us.tradeos.io",
+    "eu": "https://eu.tradeos.io"
   }
 }`
       },
@@ -290,7 +290,7 @@ export function IntegrationSection() {
             How to Integrate
           </h2>
           <p className="text-base lg:text-lg text-neutral-500 leading-relaxed">
-            Connect TRUTHGRID to your existing systems in minutes. Each integration 
+            Connect TRADEOS to your existing systems in minutes. Each integration 
             follows the same pattern: configure, connect, verify.
           </p>
         </div>

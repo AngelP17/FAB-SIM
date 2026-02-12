@@ -1,0 +1,4 @@
+{
+  "extends": "@truthgrid/tsconfig/base.json",
+  "include": ["src"]
+}

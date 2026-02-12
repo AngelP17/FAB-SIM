@@ -2,12 +2,11 @@ import { useRef, useEffect, useState } from "react";
 
 export function useCountUp(end: number, duration: number = 2000, startOnView: boolean = true) {
   const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(!startOnView);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!startOnView) {
-      setHasStarted(true);
+    if (!startOnView || hasStarted) {
       return;
     }
 

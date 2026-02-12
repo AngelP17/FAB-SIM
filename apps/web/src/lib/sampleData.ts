@@ -1,7 +1,7 @@
-import type { LedgerEntry, MaterialLossEvent, DutyCalculated, DutySealed } from "@/types";
-import { sha256Hex, utf8, stableStringify } from "./crypto";
+import type { LedgerEntry, MaterialLossEvent, DutyCalculated, DutySealed } from "@truthgrid/types";
+import { sha256Hex, utf8, stableStringify } from "@truthgrid/crypto";
 
-// Generate deterministic sample data for the TruthGrid Console
+// Generate deterministic sample data for the TradeOS Console
 
 async function generateEventHash(record: unknown, schemaVersion: number, domain: string): Promise<`0x${string}`> {
   const recordCanonical = stableStringify(record);
@@ -115,7 +115,7 @@ export async function generateSampleLedger(): Promise<LedgerEntry[]> {
       sourceId: "sealer_01",
       type: "DUTY_SEALED",
       calculationHash: eventHash2,
-      sealedBy: `operator_${String(Math.floor(Math.random() * 10)).padStart(2, "0")}`,
+      sealedBy: `operator_${String((seq % 10) + 1).padStart(2, "0")}`,
     };
 
     const eventHash3 = await generateEventHash(dutySealed, 1, "DUTYOS:DUTY_SEALED:V1");

@@ -16,7 +16,7 @@ const PRINCIPLES = [
     icon: Fingerprint,
     title: "Determinism",
     subtitle: "Same input, same output, always",
-    description: "Every operation in TRUTHGRID is deterministic. Given the same seed and parameters, the system produces identical events, calculations, and proofs—every time, on any machine.",
+    description: "Every operation in TRADEOS is deterministic. Given the same seed and parameters, the system produces identical events, calculations, and proofs—every time, on any machine.",
     details: [
       "Seed-based event generation",
       "Reproducible Merkle trees",
@@ -124,7 +124,7 @@ export function DesignPrinciplesSection() {
           </h2>
           
           <p className="text-lg lg:text-xl text-neutral-400 leading-relaxed max-w-2xl">
-            TRUTHGRID is built on six foundational principles that ensure 
+            TRADEOS is built on six foundational principles that ensure 
             audit-grade reliability, cryptographic security, and mathematical verifiability.
           </p>
         </div>
@@ -213,7 +213,7 @@ export function DesignPrinciplesSection() {
               "Don't trust. Verify."
             </p>
             <p className="text-neutral-400 leading-relaxed">
-              TRUTHGRID eliminates trust assumptions from manufacturing audit trails. 
+              TRADEOS eliminates trust assumptions from manufacturing audit trails. 
               Every claim is backed by mathematical proof. Every event is cryptographically 
               bound to its predecessors. Every calculation is reproducible and verifiable.
             </p>

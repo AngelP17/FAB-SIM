@@ -107,6 +107,12 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.8
         version: 1.2.8(@types/react-dom@19.2.3)(@types/react@19.2.14)(react-dom@19.2.4)(react@19.2.4)
+      '@truthgrid/crypto':
+        specifier: workspace:*
+        version: link:../../packages/crypto
+      '@truthgrid/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -203,6 +209,28 @@ importers:
         version: 7.3.1(@types/node@24.10.13)
 
   packages/config-ts: {}
+
+  packages/crypto:
+    dependencies:
+      '@truthgrid/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      '@truthgrid/tsconfig':
+        specifier: workspace:*
+        version: link:../config-ts
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+
+  packages/types:
+    devDependencies:
+      '@truthgrid/tsconfig':
+        specifier: workspace:*
+        version: link:../config-ts
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
 
 packages:
 

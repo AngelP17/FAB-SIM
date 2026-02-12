@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { LedgerEntry } from "@/types";
+import type { LedgerEntry } from "@truthgrid/types";
 import { EventTape } from "@/components/EventTape";
 import { MerkleExplorer } from "@/components/MerkleExplorer";
 import { LineageGraph } from "@/components/LineageGraph";
@@ -40,7 +40,7 @@ export default function ConsolePage() {
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-neutral-600 font-mono text-sm flex items-center gap-2">
           <Activity className="w-4 h-4 animate-pulse" />
-          Initializing TruthGrid Console...
+          Initializing TradeOS Console...
         </div>
       </div>
     );
@@ -83,7 +83,7 @@ export default function ConsolePage() {
               </div>
               <div>
                 <h1 className="font-mono text-sm font-bold text-white tracking-wide">
-                  TRUTHGRID<span className="text-neutral-500">::</span>CONSOLE
+                  TRADEOS<span className="text-neutral-500">::</span>CONSOLE
                 </h1>
                 <p className="text-[10px] text-neutral-600 font-mono">FAB-SIM + DutyOS // Evidence-First Audit Infrastructure</p>
               </div>

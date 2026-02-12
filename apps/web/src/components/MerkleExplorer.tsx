@@ -1,6 +1,6 @@
 import { useMemo, useState, useCallback } from "react";
-import type { LedgerEntry, MerkleNode } from "@/types";
-import { buildMerkleTree } from "@/lib/crypto";
+import type { LedgerEntry, MerkleNode } from "@truthgrid/types";
+import { buildMerkleTree } from "@truthgrid/crypto";
 import { cn } from "@/lib/utils";
 import { Check, X, Loader2 } from "lucide-react";
 

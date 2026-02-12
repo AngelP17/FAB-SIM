@@ -40,7 +40,7 @@ export default function AiDemoPage() {
               </div>
               <div>
                 <h1 className="font-mono text-sm font-bold text-white tracking-wide">
-                  TRUTHGRID<span className="text-neutral-500">::</span>AI
+                  TRADEOS<span className="text-neutral-500">::</span>AI
                 </h1>
                 <p className="text-[10px] text-neutral-600 font-mono">Document Intelligence & Extraction Pipeline</p>
               </div>

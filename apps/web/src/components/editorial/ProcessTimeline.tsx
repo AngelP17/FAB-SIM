@@ -165,7 +165,6 @@ export function ProcessTimeline() {
   // Auto-advance with progress bar
   useEffect(() => {
     if (!isPlaying) {
-      setProgress(0);
       return;
     }
 

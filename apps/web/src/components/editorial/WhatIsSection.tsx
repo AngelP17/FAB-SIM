@@ -58,11 +58,11 @@ export function WhatIsSection() {
           
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white leading-[0.95] tracking-tight mb-6">
             What is<br />
-            <span className="text-neutral-500">TRUTHGRID?</span>
+            <span className="text-neutral-500">TRADEOS?</span>
           </h2>
           
           <p className="text-lg lg:text-xl text-neutral-400 leading-relaxed max-w-2xl">
-            TRUTHGRID is an audit-grade infrastructure platform for manufacturing telemetry. 
+            TRADEOS is an audit-grade infrastructure platform for manufacturing telemetry. 
             It generates cryptographically verifiable records of material loss events, 
             enabling manufacturers to claim duty drawbacks with mathematical certainty.
           </p>
@@ -94,7 +94,7 @@ export function WhatIsSection() {
             </p>
             <div className="space-y-4 text-neutral-400 leading-relaxed">
               <p>
-                TRUTHGRID replaces trust with mathematics. Every material loss event is 
+                TRADEOS replaces trust with mathematics. Every material loss event is 
                 hashed, chained, and batched into Merkle trees—creating tamper-evident 
                 audit trails that auditors can verify independently.
               </p>

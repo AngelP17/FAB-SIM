@@ -1,0 +1,24 @@
+{
+  "name": "@truthgrid/crypto",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@truthgrid/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@truthgrid/tsconfig": "workspace:*",
+    "typescript": "^5.3.3"
+  }
+}

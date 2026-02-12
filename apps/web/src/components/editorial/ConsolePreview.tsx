@@ -16,7 +16,7 @@ export function ConsolePreview() {
             <div className="w-3 h-3 rounded-full bg-neutral-600" />
             <div className="w-3 h-3 rounded-full bg-neutral-600" />
           </div>
-          <div className="ml-3 text-[11px] font-mono text-neutral-500">truthgrid-console — zsh</div>
+          <div className="ml-3 text-[11px] font-mono text-neutral-500">tradeos-console — zsh</div>
         </div>
         
         {/* Content */}

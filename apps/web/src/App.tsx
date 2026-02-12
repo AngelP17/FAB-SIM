@@ -45,7 +45,7 @@ function App() {
   // Route to appropriate component
   if (currentPath === "/console") {
     return (
-      <Suspense fallback={<PageLoading text="Loading TruthGrid Console..." />}>
+      <Suspense fallback={<PageLoading text="Loading TradeOS Console..." />}>
         <ConsolePage />
       </Suspense>
     );

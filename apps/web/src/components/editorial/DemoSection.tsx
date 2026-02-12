@@ -176,7 +176,7 @@ export function DemoSection() {
               See it in action
             </h2>
             <p className="text-neutral-400 mb-8 leading-relaxed">
-              Get a personalized 15-minute walkthrough of the TruthGrid platform. 
+              Get a personalized 15-minute walkthrough of the TradeOS platform. 
               We'll demonstrate deterministic replay, Merkle verification, and the 
               complete event-to-seal lineage on a realistic manufacturing scenario.
             </p>

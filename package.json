@@ -2,7 +2,7 @@
   "name": "truthgrid",
   "private": true,
   "version": "1.0.0",
-  "description": "Deterministic manufacturing telemetry and audit-grade duty recovery",
+  "description": "TradeOS demo: AI ingestion to deterministic, audit-grade financial claims",
   "packageManager": "pnpm@8.15.0",
   "workspaces": [
     "apps/*",

@@ -170,7 +170,7 @@ export function ClientDemoSection() {
     }, 80);
 
     return () => clearInterval(typeInterval);
-  }, [activeStep]);
+  }, [currentStep.id]);
 
   return (
     <section 
@@ -323,7 +323,7 @@ export function ClientDemoSection() {
                     <div className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
                   </div>
-                  <span className="ml-2 text-[11px] font-mono text-neutral-500">truthgrid-console</span>
+                  <span className="ml-2 text-[11px] font-mono text-neutral-500">tradeos-console</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />

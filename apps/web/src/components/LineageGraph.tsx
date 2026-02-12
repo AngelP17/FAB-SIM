@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { LedgerEntry, DutyCalculated, DutySealed, LineageNode, LineageEdge } from "@/types";
+import type { LedgerEntry, DutyCalculated, DutySealed, LineageNode, LineageEdge } from "@truthgrid/types";
 
 
 function short(h: string) {

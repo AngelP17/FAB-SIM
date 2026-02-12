@@ -1,137 +1,114 @@
-# TRUTHGRID
+# TradeOS
 
-**Deterministic Manufacturing Telemetry for Audit-Grade Duty Recovery**
+**The Operating System for Free Trade Zones**
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-19-61dafb)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-5-646cff)](https://vitejs.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+AI ingestion -> deterministic event modeling -> tamper-evident ledger -> sealed financial claims.
 
 ---
 
-## Overview
+## One-Liner
 
-TRUTHGRID provides cryptographically verifiable audit trails for manufacturing and global trade. Our platform combines deterministic event simulation, Merkle-proof verification, and ML-based anomaly detection to ensure complete transparency in duty recovery processes.
+TradeOS uses AI to convert messy shipping documents into schema-bound events, then derives deterministic, auditable financial claims.
 
-### Key Products
+## Primary Value Props
 
-- **FAB-SIM**: Factory event simulation engine with reproducible seeds
-- **DutyOS**: Reconciliation engine with cryptographic verification
-- **Audit AI**: ML-powered anomaly detection and risk profiling
+- Vision-to-Hash ingestion (unstructured -> structured)
+- Deterministic replay (seed-consistent proofs)
+- Tamper-evident ledger (hash chains + Merkle batching)
+- Sealed financial claims (immutable artifacts)
+
+---
+
+## Current Repository State (Truthful)
+
+This repository currently contains:
+
+- `apps/web`: Vite + React landing + console demo
+- `packages/config-ts`: shared TypeScript config package
+- `packages/types`: shared domain types package (`@truthgrid/types`)
+- `packages/crypto`: shared crypto utilities package (`@truthgrid/crypto`)
+- Turborepo + pnpm workspace orchestration
+
+Not yet implemented in this repo:
+
+- `apps/api`
+- `apps/docs`
+- shared UI package (`@truthgrid/ui`)
+- CI workflows under `.github/workflows`
 
 ---
 
 ## Quick Start
 
 ```bash
-# Install pnpm
-npm install -g pnpm
-
-# Install dependencies
 pnpm install
-
-# Run development servers
 pnpm dev
+```
 
-# Build for production
+Useful commands:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
 pnpm build
+```
+
+---
+
+## Repository Layout
+
+```text
+FAB-SIM/
+  apps/
+    web/
+  packages/
+    config-ts/
+    types/
+    crypto/
+  tooling/
+  README.md
+  AGENTS.md
+  FAB-SIM.md
+  CODING-STANDARDS.md
+  PROJECT-ROADMAP.md
+  PROJECT-EXECUTION-LOG.md
+  ML-SYSTEM-DESIGN-ANALYSIS.md
+  SHOWCASE-GUIDE.md
 ```
 
 ---
 
 ## Documentation
 
-| Document | Purpose |
-|----------|---------|
-| [FAB-SIM.md](./FAB-SIM.md) | Technical specification |
-| [AGENTS.md](./AGENTS.md) | Developer guide |
-| [CODING-STANDARDS.md](./CODING-STANDARDS.md) | Code conventions |
-| [PROJECT-ROADMAP.md](./PROJECT-ROADMAP.md) | Product roadmap |
-| [ML-SYSTEM-DESIGN-ANALYSIS.md](./ML-SYSTEM-DESIGN-ANALYSIS.md) | ML architecture analysis |
+- [FAB-SIM.md](./FAB-SIM.md) - YC-grade landing + console spec for TradeOS
+- [AGENTS.md](./AGENTS.md) - engineering workflow guide
+- [CODING-STANDARDS.md](./CODING-STANDARDS.md) - implementation standards
+- [PROJECT-ROADMAP.md](./PROJECT-ROADMAP.md) - delivery roadmap
+- [PROJECT-EXECUTION-LOG.md](./PROJECT-EXECUTION-LOG.md) - latest execution/audit log
+- [ML-SYSTEM-DESIGN-ANALYSIS.md](./ML-SYSTEM-DESIGN-ANALYSIS.md) - ML research direction
+- [SHOWCASE-GUIDE.md](./SHOWCASE-GUIDE.md) - live demo script
 
 ---
 
-## Architecture
+## Verified by Command Output
 
-```mermaid
-flowchart TB
-    subgraph Apps["🚀 Applications"]
-        Web["@truthgrid/web<br/>Marketing + Console"]
-        Docs["@truthgrid/docs<br/>Documentation"]
-        API["@truthgrid/api<br/>FastAPI Backend"]
-    end
+Date: 2026-02-12
 
-    subgraph Packages["📦 Shared Packages"]
-        UI["@truthgrid/ui<br/>Components"]
-        Crypto["@truthgrid/crypto<br/>WASM Cryptography"]
-        Types["@truthgrid/types<br/>TypeScript"]
-        ML["@truthgrid/ml<br/>ML Services"]
-    end
+```bash
+pnpm lint
+# success (turbo + @truthgrid/types + @truthgrid/crypto + @truthgrid/web)
 
-    subgraph Infra["⚙️ Infrastructure"]
-        Turbo["Turborepo"]
-        PNPM["pnpm Workspaces"]
-    end
+pnpm typecheck
+# success
 
-    Web --> UI
-    Web --> Types
-    Web --> ML
-    API --> ML
-    API --> Crypto
-    UI --> Types
-    ML --> Types
+pnpm test
+# success (currently build-backed pipeline; dedicated tests still to add)
+
+pnpm build
+# success
+# notable bundle outputs:
+# - main app chunk ~364.94 kB
+# - console chunk ~8.60 kB
+# - AI demo chunk ~51.44 kB
 ```
-
----
-
-## Features
-
-### Current (MVP)
-
-- ✅ Deterministic event simulation with cryptographic proofs
-- ✅ Interactive console (Event Tape, Merkle Explorer, Lineage Graph)
-- ✅ Responsive editorial landing page
-- ✅ Performance optimized (lazy loading, content-visibility)
-- ✅ Accessibility compliant (reduced-motion, keyboard nav)
-
-### Planned (Q2 2026)
-
-- 🚧 Real-time anomaly detection (Stripe Radar pattern)
-- 🚧 Entity risk profiling (Uber pattern)
-- 🚧 LLM-powered schema inference (Grab pattern)
-- 🚧 Graph-based fraud detection (Wayfair pattern)
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 19 + TypeScript + Vite |
-| Styling | TailwindCSS 3.x |
-| Animation | GSAP 3.x |
-| Crypto | WebCrypto API + WASM |
-| ML | Python + ONNX Runtime |
-| Backend | FastAPI + PostgreSQL |
-
----
-
-## Contributing
-
-See [CODING-STANDARDS.md](./CODING-STANDARDS.md) for development guidelines.
-
----
-
-## Diagrams
-
-This repository uses [Mermaid.js](https://mermaid.js.org/) for diagrams. To view them:
-
-- **GitHub**: Renders automatically in README and markdown files
-- **VS Code**: Install [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) extension
-- **Web**: Use [Mermaid Live Editor](https://mermaid.live/)
-
----
-
-## License
-
-MIT © 2026 TRUTHGRID

@@ -15,7 +15,7 @@ const USE_CASES = [
     icon: Factory,
     title: "Manufacturing Duty Drawback",
     subtitle: "Core Application",
-    description: "Manufacturers import raw materials duty-paid, then export finished goods. TRUTHGRID creates tamper-proof records of material losses during production—scrap, waste, and shrinkage—enabling legally defensible duty recovery claims.",
+    description: "Manufacturers import raw materials duty-paid, then export finished goods. TRADEOS creates tamper-proof records of material losses during production—scrap, waste, and shrinkage—enabling legally defensible duty recovery claims.",
     benefits: [
       "Automatic material loss tracking",
       "Cryptographic proof of destruction",
@@ -29,7 +29,7 @@ const USE_CASES = [
     icon: Scale,
     title: "Regulatory Compliance",
     subtitle: "Legal Defense",
-    description: "When customs authorities challenge duty claims, TRUTHGRID provides mathematical proof of every material loss event. No more relying on spreadsheets and signed affidavits—just cryptographic verification.",
+    description: "When customs authorities challenge duty claims, TRADEOS provides mathematical proof of every material loss event. No more relying on spreadsheets and signed affidavits—just cryptographic verification.",
     benefits: [
       "Tamper-evident audit trails",
       "Independent verification",
@@ -43,7 +43,7 @@ const USE_CASES = [
     icon: Globe2,
     title: "Multi-Jurisdictional Trade",
     subtitle: "Global Operations",
-    description: "For manufacturers operating across multiple customs territories, TRUTHGRID maintains separate, compliant audit trails for each jurisdiction—supporting NAFTA, EU, and other trade agreement requirements.",
+    description: "For manufacturers operating across multiple customs territories, TRADEOS maintains separate, compliant audit trails for each jurisdiction—supporting NAFTA, EU, and other trade agreement requirements.",
     benefits: [
       "Jurisdiction-specific schemas",
       "Multi-currency duty calculations",
@@ -57,7 +57,7 @@ const USE_CASES = [
     icon: Building2,
     title: "Enterprise Audit",
     subtitle: "Big Four Integration",
-    description: "Major accounting firms use TRUTHGRID to verify manufacturing claims for their clients. The platform's deterministic replay capability allows auditors to regenerate any claim from its original seed.",
+    description: "Major accounting firms use TRADEOS to verify manufacturing claims for their clients. The platform's deterministic replay capability allows auditors to regenerate any claim from its original seed.",
     benefits: [
       "Auditor self-service verification",
       "Deterministic replay",
@@ -120,7 +120,7 @@ export function UseCasesSection() {
           </h2>
           
           <p className="text-lg lg:text-xl text-neutral-500 leading-relaxed max-w-2xl">
-            TRUTHGRID applies cryptographic verification to any scenario requiring 
+            TRADEOS applies cryptographic verification to any scenario requiring 
             tamper-proof manufacturing telemetry and defensible audit trails.
           </p>
         </div>

@@ -26,7 +26,7 @@ const PROFESSIONAL_GROUPS = [
   {
     icon: Gavel,
     title: "Customs & Trade Attorneys",
-    description: "Defend duty drawback claims with tamper-proof evidence. TRUTHGRID's Merkle proofs hold up in legal proceedings.",
+    description: "Defend duty drawback claims with tamper-proof evidence. TRADEOS's Merkle proofs hold up in legal proceedings.",
     painPoints: [
       "Incomplete documentation",
       "Disputed material losses",
@@ -102,7 +102,7 @@ export function ProfessionalsSection() {
         {/* Section Header */}
         <div data-reveal className="max-w-3xl mb-16 lg:mb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full mb-6">
-            <span className="text-[10px] font-mono text-white/60 tracking-widest uppercase">Who Uses TRUTHGRID</span>
+            <span className="text-[10px] font-mono text-white/60 tracking-widest uppercase">Who Uses TRADEOS</span>
           </div>
           
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white leading-[0.95] tracking-tight mb-6">
@@ -111,7 +111,7 @@ export function ProfessionalsSection() {
           </h2>
           
           <p className="text-lg lg:text-xl text-neutral-400 leading-relaxed max-w-2xl">
-            TRUTHGRID serves the diverse stakeholders involved in manufacturing 
+            TRADEOS serves the diverse stakeholders involved in manufacturing 
             duty recovery—from plant floor operators to C-suite executives.
           </p>
         </div>

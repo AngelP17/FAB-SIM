@@ -38,7 +38,6 @@ export function ImageExtractDemo() {
 
   useEffect(() => {
     if (!isProcessing) {
-      setScanPosition(0);
       return;
     }
 
@@ -57,6 +56,7 @@ export function ImageExtractDemo() {
   }, [isProcessing]);
 
   const handleRunExtraction = () => {
+    setScanPosition(0);
     setIsProcessing(true);
     setShowResults(false);
     setRevealedEntities([]);
@@ -98,7 +98,7 @@ export function ImageExtractDemo() {
                     key={i}
                     className="bg-neutral-800"
                     style={{ 
-                      width: Math.random() > 0.5 ? '3px' : '1px',
+                      width: i % 3 === 0 ? '3px' : '1px',
                       height: '40px'
                     }}
                   />
