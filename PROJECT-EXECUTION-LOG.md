@@ -274,3 +274,39 @@ pnpm build
 # - console chunk ~26.38 kB
 # - full demo chunk ~27.99 kB
 ```
+
+---
+
+## Incremental Update: Demo Flicker + Favicon Hotfix
+
+Date: 2026-02-12  
+Type: UI stability fix + asset fix
+
+### Updated files
+
+- `apps/web/src/components/demo/FullDemoExperience.tsx`
+- `apps/web/index.html`
+- `apps/web/public/favicon.svg`
+
+### Summary
+
+- removed step-coupled GSAP reveal dependencies in full demo to stop flash/flicker during step transitions
+- removed per-line terminal animation re-triggering that caused repeated opacity resets
+- added favicon link + asset to eliminate browser `favicon.ico` 404 noise in local dev
+
+### Verified by command output
+
+```bash
+pnpm lint
+# pass
+
+pnpm typecheck
+# pass
+
+pnpm build
+# pass
+# build artifact highlights:
+# - main app chunk ~370.54 kB
+# - console chunk ~26.38 kB
+# - full demo chunk ~27.98 kB
+```

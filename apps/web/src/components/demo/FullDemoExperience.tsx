@@ -434,9 +434,9 @@ export function FullDemoExperience() {
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [copiedSeed, setCopiedSeed] = useState(false);
-  useGsapReveal(sectionRef, [currentStep]);
+  useGsapReveal(sectionRef, []);
   useGsapHoverPress(sectionRef);
-  useGsapTerminal(consoleRef, [currentStep, displayedLines.length]);
+  useGsapTerminal(consoleRef, []);
 
   const loadEntries = async () => {
     setIsLoading(true);
