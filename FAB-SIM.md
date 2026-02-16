@@ -40,6 +40,8 @@ Routes:
 Key implemented UI blocks:
 
 - hero + editorial sections
+- hero Route A transaction-stream canvas (lane pulses with merges/splits)
+- hero interactive controls for `Low Latency`, `Reconciliation`, and `Risk Controls`
 - service-chain messaging: AI customs -> predictive logistics -> invoice factoring
 - console workspaces tab flow with mock operational I/O for the three services
 - actionable workspace progression controls (run, advance step, reset, run full chain)

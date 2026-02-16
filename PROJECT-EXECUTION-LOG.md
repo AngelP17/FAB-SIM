@@ -345,3 +345,55 @@ pnpm build
 # - console chunk ~20.62 kB
 # - full demo chunk ~21.07 kB
 ```
+
+---
+
+## Incremental Update: Landing Route A Transaction Stream Shader
+
+Date: 2026-02-16  
+Type: Landing hero visual system upgrade
+
+### Updated files
+
+- `apps/web/src/components/editorial/TransactionStreamShader.tsx`
+- `apps/web/src/components/editorial/HeroSection.tsx`
+- `README.md`
+- `FAB-SIM.md`
+
+### Summary
+
+- implemented a decorative Route A transaction-stream canvas for landing hero:
+  - lane/grid structure
+  - transaction pulse blocks moving across lanes
+  - occasional lane merges/splits
+  - stable, systems-style motion profile
+- wired interaction controls into hero:
+  - `Low Latency` increases stream speed/density/merge probability
+  - `Reconciliation` aligns/stabilizes lane behavior
+  - `Risk Controls` tightens pulse deviation and randomness
+- performance and UX safeguards:
+  - canvas remains decorative under HTML content
+  - honors `prefers-reduced-motion` with static lane rendering
+  - caps DPR for mobile and desktop to control GPU/CPU load
+  - supports hover (desktop) and tap/focus (mobile/keyboard) control input
+- updated product docs to reflect current landing implementation
+
+### Verified by command output
+
+```bash
+pnpm lint
+# pass
+
+pnpm typecheck
+# pass
+
+pnpm test
+# pass
+
+pnpm build
+# pass
+# build artifact highlights:
+# - main app chunk ~332.96 kB
+# - console chunk ~20.62 kB
+# - full demo chunk ~21.07 kB
+```

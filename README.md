@@ -27,6 +27,7 @@ TradeOS uses AI to convert messy shipping documents into schema-bound events, th
 This repository currently contains:
 
 - `apps/web`: Vite + React landing + console demo
+- landing Route A transaction-stream canvas hero with interactive behavior controls
 - Console workspaces simulation for:
   - AI customs agent
   - predictive logistics

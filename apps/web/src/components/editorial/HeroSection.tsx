@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Terminal, ChevronDown, Play, ShieldCheck, Hash, Activity } from "lucide-react";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
 import { useGsapHoverPress } from "@/hooks/useGsapHoverPress";
 import { ConsolePreview } from "./ConsolePreview";
+import { TransactionStreamShader, type StreamMode } from "./TransactionStreamShader";
 
 const SIGNALS = [
   { label: "Service 1", value: "AI Customs Agent", icon: Hash },
@@ -10,10 +11,35 @@ const SIGNALS = [
   { label: "Service 3", value: "Invoice Factoring", icon: ShieldCheck },
 ];
 
+const FLOW_CONTROLS: Array<{
+  id: StreamMode;
+  title: string;
+  subtitle: string;
+}> = [
+  {
+    id: "lowLatency",
+    title: "Low Latency",
+    subtitle: "Accelerate lanes + throughput",
+  },
+  {
+    id: "reconciliation",
+    title: "Reconciliation",
+    subtitle: "Align streams and stabilize paths",
+  },
+  {
+    id: "riskControls",
+    title: "Risk Controls",
+    subtitle: "Tighten pulse deviation",
+  },
+];
+
 // Main Hero Section
 export function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [pinnedMode, setPinnedMode] = useState<StreamMode>("default");
+  const [hoverMode, setHoverMode] = useState<StreamMode | null>(null);
+  const activeMode = hoverMode ?? pinnedMode;
   
   useGsapReveal(heroRef, []);
   useGsapHoverPress(contentRef);
@@ -25,6 +51,7 @@ export function HeroSection() {
     >
       {/* Background atmosphere */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <TransactionStreamShader mode={activeMode} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(56,189,248,0.16),transparent_34%),radial-gradient(circle_at_86%_18%,rgba(251,146,60,0.14),transparent_32%),radial-gradient(circle_at_56%_86%,rgba(45,212,191,0.12),transparent_38%)]" />
         <div className="absolute inset-0 opacity-20 [background-size:42px_42px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(6,7,8,0.2),rgba(6,7,8,0.92)_64%,#060708)]" />
@@ -99,6 +126,41 @@ export function HeroSection() {
                 <Terminal className="w-4 h-4" />
                 Launch Console
               </a>
+            </div>
+
+            <div data-reveal className="space-y-3 pt-1">
+              <div className="text-[10px] font-mono uppercase tracking-[0.24em] text-neutral-500">
+                Transaction Stream Controls
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+                {FLOW_CONTROLS.map((control) => {
+                  const isActive = activeMode === control.id;
+                  return (
+                    <button
+                      key={control.id}
+                      data-press
+                      type="button"
+                      onMouseEnter={() => setHoverMode(control.id)}
+                      onMouseLeave={() => setHoverMode(null)}
+                      onFocus={() => setHoverMode(control.id)}
+                      onBlur={() => setHoverMode(null)}
+                      onClick={() => setPinnedMode(control.id)}
+                      className={[
+                        "rounded-lg border text-left px-3 py-2.5 transition-colors min-h-[56px]",
+                        isActive
+                          ? "border-cyan-200/45 bg-cyan-300/12"
+                          : "border-white/15 bg-black/45 hover:border-white/35",
+                      ].join(" ")}
+                    >
+                      <div className="text-[11px] font-semibold text-white">{control.title}</div>
+                      <div className="text-[10px] text-neutral-400 mt-0.5">{control.subtitle}</div>
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="text-[10px] text-neutral-500">
+                Hover on desktop or tap on mobile to tune transaction lane behavior.
+              </div>
             </div>
 
             {/* Signal chips */}
