@@ -88,6 +88,16 @@ FAB-SIM/
 
 ---
 
+## Screenshots
+
+### Landing Page
+![Landing](./landing.png)
+
+### Console
+![Console](./console.png)
+
+---
+
 ## Documentation
 
 - [FAB-SIM.md](./FAB-SIM.md) - YC-grade landing + console spec for TradeOS
